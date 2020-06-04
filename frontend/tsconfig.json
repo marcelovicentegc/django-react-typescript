@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./static/frontend/",
     "target": "es5",
     "jsx": "react",
     "moduleResolution": "node",
@@ -14,6 +14,6 @@
     "module": "esnext",
     "lib": ["es6", "dom", "dom.iterable"]
   },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules", "dist", "**/__tests__/**/*"]
+  "include": ["./**/*"],
+  "exclude": ["node_modules", "static/frontend", "**/__tests__/**/*"]
 }

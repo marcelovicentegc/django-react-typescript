@@ -16,9 +16,9 @@ if (process.env.NODE_ENV === "development") {
 module.exports = {
   context: __dirname,
   mode: process.env.NODE_ENV,
-  entry: "./src/index.tsx",
+  entry: "./index.tsx",
   output: {
-    filename: "bundle.js",
+    filename: "index.js",
     path: path.resolve(__dirname, "static/frontend"),
     publicPath: "/",
   },
@@ -32,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "index.html"),
+      template: path.resolve(__dirname, "templates", "frontend", "index.html"),
       filename: "index.html",
     }),
     new CopyWebpackPlugin([{ from: "pwa" }]),

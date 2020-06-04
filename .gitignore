@@ -8,7 +8,7 @@ __pycache__
 db.sqlite3
 
 # Webpack
-dist
+frontend/static/frontend
 
 # npm
 node_modules
