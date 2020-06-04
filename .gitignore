@@ -3,3 +3,6 @@ venv
 
 # Python specific
 __pycache__
+
+# Django specific
+db.sqlite3
