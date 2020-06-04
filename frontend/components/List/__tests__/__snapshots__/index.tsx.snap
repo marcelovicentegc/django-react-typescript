@@ -1,0 +1,300 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<List /> test case renders items with extra functionalities 1`] = `
+Array [
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-top: 2px solid #e5e5e5;
+  line-height: 1.6;
+  padding: 18px 22px;
+  cursor: default;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-felx;
+  display: -ms-felxbox;
+  display: felx;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 0px 8px;
+}
+
+.c1 span {
+  cursor: pointer;
+  margin: 0px 4px;
+}
+
+<li
+    class="c0"
+    data-testid="listItem"
+    label="Plan your application"
+  >
+    Plan your application
+    <div
+      class="c1"
+    >
+      <span>
+        ➖
+      </span>
+    </div>
+  </li>,
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-top: 2px solid #e5e5e5;
+  line-height: 1.6;
+  padding: 18px 22px;
+  cursor: default;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-felx;
+  display: -ms-felxbox;
+  display: felx;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 0px 8px;
+}
+
+.c1 span {
+  cursor: pointer;
+  margin: 0px 4px;
+}
+
+<li
+    class="c0"
+    data-testid="listItem"
+    label="Don't repeat yourself"
+  >
+    Don't repeat yourself
+    <div
+      class="c1"
+    >
+      <span>
+        ➖
+      </span>
+    </div>
+  </li>,
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-top: 2px solid #e5e5e5;
+  line-height: 1.6;
+  padding: 18px 22px;
+  cursor: default;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-felx;
+  display: -ms-felxbox;
+  display: felx;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 0px 8px;
+}
+
+.c1 span {
+  cursor: pointer;
+  margin: 0px 4px;
+}
+
+<li
+    class="c0"
+    data-testid="listItem"
+    label="Keep it simple, stupid"
+  >
+    Keep it simple, stupid
+    <div
+      class="c1"
+    >
+      <span>
+        ➖
+      </span>
+    </div>
+  </li>,
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-top: 2px solid #e5e5e5;
+  line-height: 1.6;
+  padding: 18px 22px;
+  cursor: default;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-felx;
+  display: -ms-felxbox;
+  display: felx;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 0px 8px;
+}
+
+.c1 span {
+  cursor: pointer;
+  margin: 0px 4px;
+}
+
+<li
+    class="c0"
+    data-testid="listItem"
+    label="Control change"
+  >
+    Control change
+    <div
+      class="c1"
+    >
+      <span>
+        ➖
+      </span>
+    </div>
+  </li>,
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-top: 2px solid #e5e5e5;
+  line-height: 1.6;
+  padding: 18px 22px;
+  cursor: default;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-felx;
+  display: -ms-felxbox;
+  display: felx;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 0px 8px;
+}
+
+.c1 span {
+  cursor: pointer;
+  margin: 0px 4px;
+}
+
+<li
+    class="c0"
+    data-testid="listItem"
+    label="Document what you're doing"
+  >
+    Document what you're doing
+    <div
+      class="c1"
+    >
+      <span>
+        ➖
+      </span>
+    </div>
+  </li>,
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-top: 2px solid #e5e5e5;
+  line-height: 1.6;
+  padding: 18px 22px;
+  cursor: default;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-felx;
+  display: -ms-felxbox;
+  display: felx;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 0px 8px;
+}
+
+.c1 span {
+  cursor: pointer;
+  margin: 0px 4px;
+}
+
+<li
+    class="c0"
+    data-testid="listItem"
+    label="Test what you're writing"
+  >
+    Test what you're writing
+    <div
+      class="c1"
+    >
+      <span>
+        ➖
+      </span>
+    </div>
+  </li>,
+]
+`;

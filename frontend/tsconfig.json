@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "target": "es5",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "removeComments": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "lib": ["es6", "dom", "dom.iterable"]
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist", "**/__tests__/**/*"]
+}

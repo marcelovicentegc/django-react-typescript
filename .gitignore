@@ -1,8 +1,17 @@
 # Virtual environment
 venv
 
-# Python specific
+# Python
 __pycache__
 
-# Django specific
+# Django
 db.sqlite3
+
+# Webpack
+dist
+
+# npm
+node_modules
+
+# Jest
+coverage

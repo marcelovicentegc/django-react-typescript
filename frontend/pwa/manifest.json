@@ -1,0 +1,15 @@
+{
+  "short_name": "rtc",
+  "name": "react-typescript-client",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#235390",
+  "background_color": "#235390"
+}
