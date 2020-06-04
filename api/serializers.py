@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from frontend.models import Subscribers
+from frontend.models.subscribers import Subscribers
 
 class SubscribersSerializer(serializers.ModelSerializer):
     class Meta:
