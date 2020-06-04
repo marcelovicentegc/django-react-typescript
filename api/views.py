@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from frontend.models import Subscribers
+from .serializers import SubscribersSerializer
+from rest_framework import generics
 
-# Create your views here.
+class SubscribersListCreate(generics.ListCreateAPIView):
+    queryset = Subscribers.objects.all()
+    serializer_class = SubscribersSerializer
