@@ -29,3 +29,7 @@
 - Database
 
   1. **PostgreSQL**
+
+## Basic React-Django application architecture
+
+![Example architecture](./assets/exampleAppArchitecture.png)
