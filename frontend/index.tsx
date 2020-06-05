@@ -2,11 +2,10 @@ import * as React from "react";
 import { render } from "react-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme, Theme } from "./utils/theme";
-import { Header } from "./components/Header";
-import { Layout } from "./components/Layout";
 import { LandingPageProvider } from "./contexts/LandingPageContext";
 import { register } from "./serviceWorker";
-import { LandingPage } from "./containers/LandingPage";
+import { BrowserRouter } from "react-router-dom";
+import { Routes } from "./containers/Routes";
 
 const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     html {
@@ -15,7 +14,7 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
       overflow-x: hidden;
       
       body {
-            ${props => props.theme.fontFamily}
+            ${(props) => props.theme.fontFamily}
             margin: 0;
             height: 100%;
 
@@ -31,10 +30,9 @@ const Root: React.FC = () => {
     <ThemeProvider theme={theme}>
       <LandingPageProvider>
         <GlobalStyle theme={theme} />
-        <Header />
-        <Layout>
-          <LandingPage />
-        </Layout>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
       </LandingPageProvider>
     </ThemeProvider>
   );
