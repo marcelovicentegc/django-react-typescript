@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Subscribers(models.Model):
+class Subscriber(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     wpp = models.CharField(max_length=300)

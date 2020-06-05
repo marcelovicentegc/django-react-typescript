@@ -1,7 +1,7 @@
-from backend.models.subscribers import Subscribers
+from backend.models.subscribers import Subscriber
 from .serializers import SubscribersSerializer
 from rest_framework import generics
 
 class SubscribersListCreate(generics.ListCreateAPIView):
-    queryset = Subscribers.objects.all()
+    queryset = Subscriber.objects.all()
     serializer_class = SubscribersSerializer

@@ -1,7 +1,8 @@
 from django.db import models
 from .base import TextBlock, ButtonBlock
 
-class Carrousel(TextBlock, ButtonBlock):
+
+class CarrouselItem(TextBlock, ButtonBlock):
     class Position(models.TextChoices):
         TOP_CENTER = 'TOP_CENTER', 'At the top center'
         TOP_LEFT = 'TOP_LEFT', 'At the top left'

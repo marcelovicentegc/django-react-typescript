@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from backend.models.subscribers import Subscribers
+from backend.models.subscribers import Subscriber
 
 class SubscribersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subscribers
+        model = Subscriber
         fields = ('id', 'name', 'email', 'wpp', 'neighborhood')
