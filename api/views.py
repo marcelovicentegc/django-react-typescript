@@ -1,4 +1,4 @@
-from frontend.models.subscribers import Subscribers
+from backend.models.subscribers import Subscribers
 from .serializers import SubscribersSerializer
 from rest_framework import generics
 
