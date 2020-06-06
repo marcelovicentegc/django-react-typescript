@@ -19,6 +19,7 @@ Static Test [FRONTEND]:
     - npm run test:static
 
 Build [FRONTEND]:
+  image: node:12
   stage: build
   before_script:
     - cd frontend && npm ci
@@ -36,6 +37,7 @@ Build [DOCKER]:
     - docker push $CI_PROJECT_NAME:v$CI_PIPELINE_ID
 
 Unit Test [FRONTEND]:
+  image: node:12
   stage: test
   before_script:
     - cd frontend && npm ci
