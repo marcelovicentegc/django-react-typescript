@@ -132,3 +132,20 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     )
 }
+
+
+# Sentry 
+# Enable this if on production
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+SENTRY_DNS = os.environ.get('SENTRY_DNS')
+
+sentry_sdk.init(
+    dsn=SENTRY_DNS,
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
