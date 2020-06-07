@@ -25,7 +25,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='w%h-ok)&7l2e@1&ht!#ol3!!qg9zw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=0))
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default=[]).split(' ')
+ALLOWED_HOSTS = []
+if os.environ.get('ALLOWED_HOSTS'):
+    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+
 
 # Application definition
 
