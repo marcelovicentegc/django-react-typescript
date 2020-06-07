@@ -14,16 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import re_path, include
+from rtd.settings.base import STATIC_ROOT
+from django.views.static import serve
 
+admin.site.site_header = "React-Typescript-Django admin"
+admin.site.site_title = "React-Typescript-Django admin"
+admin.site.index_title = "Modules"
 
 def trigger_error(request):
     division_by_zero = 1 / 0
 
 urlpatterns = [
-    path('sentry-debug/', trigger_error),
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
-    path('', include('frontend.urls')),
-    
+    re_path(r'^sentry-debug/', trigger_error),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^api/', include('api.urls')),
+    re_path(r'^static/(?P<path>.*)$', serve, { 'document_root' : STATIC_ROOT, }), 
+    re_path(r'^', include('frontend.urls')),
 ]

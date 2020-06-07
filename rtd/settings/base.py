@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+if (os.environ.get('MODE') == 'production'):
+    from .prod import *
+else:
+    from .dev import *
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,13 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', default='w%h-ok)&7l2e@1&ht!#ol3!!qg9zwz9hs$wf@fk4e0-7x1r*#d')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG', default=0))
-
 ALLOWED_HOSTS = []
-if os.environ.get('ALLOWED_HOSTS'):
-    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
-
 
 # Application definition
 
@@ -124,30 +123,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# Django Rest Framework
-
-# Enable this if on production
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
-}
-
-
-# Sentry 
-# Enable this if on production
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
-SENTRY_DNS = os.environ.get('SENTRY_DNS')
-
-sentry_sdk.init(
-    dsn=SENTRY_DNS,
-    integrations=[DjangoIntegration()],
-
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True
-)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

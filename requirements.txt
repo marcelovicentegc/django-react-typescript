@@ -3,3 +3,4 @@ djangorestframework>=3.11.0
 sentry-sdk>=0.14.4
 gunicorn>=20.0.4
 Pillow>=7.1.2
+django-cors-headers>=3.3.0

@@ -8,6 +8,7 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 0
 ENV PYTHONUNBUFFERED 0
 ENV SECRET_KEY $SECRET_KEY
+ENV MODE "production"
 
 # Update image
 RUN apt-get update && \
