@@ -21,8 +21,16 @@ class BiographyEndpoint(APIView):
 
     def get(self, request, format=None):
         """
-        Returns the bio.
+        Returns the last bio object created.
         """
 
-        biography = Biography.objects.all()
-        return Response(biography)
+        biography = Biography.objects.latest(
+                'created_at')
+
+        serialized_bio = {
+            'title': biography.title,
+            'subtitle': biography.subtitle,
+            'description': biography.description
+        }
+      
+        return Response(serialized_bio)
