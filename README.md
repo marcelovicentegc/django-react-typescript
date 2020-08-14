@@ -18,12 +18,12 @@ This is a fully-featured Django-React boilerplate built for great development ex
 
 ### Frontend
 
-- React
-- Typescript
-- React Router
-- Styled Components
-- React Testing Library
-- Webpack
+- [React](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [React Router](https://reactrouter.com/)
+- [Styled Components](https://styled-components.com/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [Webpack](https://webpack.js.org/)
 
 | Other features              | Status |
 | --------------------------- | ------ |
@@ -36,8 +36,8 @@ This is a fully-featured Django-React boilerplate built for great development ex
 
 ### Backend
 
-- Django
-- Django REST Framework
+- [Django](https://www.djangoproject.com/)
+- [Django REST Framework](https://www.django-rest-framework.org/)
 - Django CORS Headers
 
 | Other features       | Status |
@@ -48,8 +48,8 @@ This is a fully-featured Django-React boilerplate built for great development ex
 ### Infrastructure
 
 - Docker image with
-  - Memcached
-  - PostgreSQL
+  - [Memcached](https://memcached.org/)
+  - [PostgreSQL](https://www.postgresql.org/)
 
 | Other features                                                                             | Status |
 | ------------------------------------------------------------------------------------------ | ------ |
@@ -58,10 +58,10 @@ This is a fully-featured Django-React boilerplate built for great development ex
 
 ### Integrations
 
-- Sentry
-- Cloudinary
-- Twilio
-- Google Analytics
+- [Sentry](https://sentry.io/welcome/)
+- [Cloudinary](https://cloudinary.com/)
+- [Twilio](https://www.twilio.com/)
+- [Google Analytics](https://analytics.google.com/analytics/web/)
 
 ## Development directions
 
