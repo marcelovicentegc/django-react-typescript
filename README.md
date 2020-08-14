@@ -1,3 +1,6 @@
+[![License: MIT](https://img.shields.io/github/license/marcelovicentegc/django-react-typescript)](LICENSE)
+![Build and Test app](https://github.com/marcelovicentegc/django-react-typescript/workflows/Build%20and%20Test%20app/badge.svg)
+
 <p align="center">
   <img alt="django-react-typescript logo" src="assets/Logo.png" />
   <p align="center">Your favorite React-Django boilerplate.</p>
