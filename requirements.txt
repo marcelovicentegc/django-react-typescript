@@ -1,4 +1,4 @@
-Django>=3.0.7
+Django==3.0.7
 djangorestframework>=3.11.0
 sentry-sdk>=0.14.4
 gunicorn>=20.0.4
