@@ -1,71 +1,88 @@
 import { styled } from "../../utils/theme";
-import { ButtonType } from ".";
+
+export enum TButtonType {
+  primary,
+  secondary,
+  tertiary,
+  quaternary,
+  quinary,
+}
 
 export const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-  max-width: 200px;
   transition: 0.2s;
   margin: 0px 8px;
-
-  &:hover {
-    filter: brightness(1.1);
-  }
 `;
 
-export const StyledButton = styled.button<{ buttonType: ButtonType }>`
+export const StyledButton = styled.button<{
+  buttonType: TButtonType;
+  disabled?: boolean;
+  secondaryDisabled?: boolean;
+}>`
   position: relative;
-  border-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  box-sizing: border-box;
+  border-radius: 22.5px;
   outline: none;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  border-bottom-right-radius: 18px;
-  border-bottom-left-radius: 18px;
-  border-width: 0 0 4px;
-  padding: 13px 16px;
-  ${({ theme, buttonType }) =>
+  padding: 8px 30px;
+  white-space: nowrap;
+  ${({ theme, buttonType, disabled, secondaryDisabled }) =>
     `background-color: ${
-      buttonType === ButtonType.primary
+      disabled
+        ? theme.color.grey9
+        : buttonType === TButtonType.primary ||
+          buttonType === TButtonType.quaternary ||
+          secondaryDisabled
         ? theme.color.green1
-        : buttonType === ButtonType.secondary
+        : buttonType === TButtonType.secondary
+        ? theme.color.blue6
+        : buttonType === TButtonType.quinary
         ? theme.color.white1
-        : theme.color.blue3
-    }
-    color: ${
-      buttonType === ButtonType.primary || buttonType === ButtonType.tertiary
-        ? theme.color.white1
-        : theme.color.blue1
-    }
+        : theme.color.green2
+    };
+    border: ${
+      disabled
+        ? theme.color.grey9
+        : buttonType === TButtonType.tertiary
+        ? `1.5px solid ${theme.color.white1}`
+        : buttonType === TButtonType.quinary
+        ? `1.5px solid ${theme.color.black1}`
+        : "none"
+    };
+    transition: .2s;
     
-    &:after {
-      position: absolute;
-        background-color: ${
-          buttonType === ButtonType.primary
-            ? theme.color.green2
-            : buttonType === ButtonType.secondary
-            ? theme.color.white2
-            : theme.color.blue2
-        }
-      border-color: transparent;
-      border-width: 0 0 4px;
-      border-radius: 16px;
-      bottom: -8px;
-      content: "";
-      left: 0;
-      right: 0;
-      z-index: -1;
-      top: 0;
-    }`}
-  cursor: pointer;
+    &:focus {
+      outline: none;
+    }
 
-  &:focus {
-    outline: none;
-  }
-`;
+    cursor: ${disabled || secondaryDisabled ? "not-allowed" : "pointer"};
 
-export const Label = styled.span`
-  position: relative;
-  text-transform: uppercase;
-  font-weight: bold;
-  top: 1px;
+    &:hover {
+      background-color: ${
+        disabled
+          ? theme.color.grey9
+          : buttonType === TButtonType.primary
+          ? theme.color.green2
+          : buttonType === TButtonType.secondary
+          ? theme.color.blue6
+          : buttonType === TButtonType.tertiary ||
+            buttonType === TButtonType.quinary
+          ? theme.color.green1
+          : theme.color.green1
+      };
+      border-color: ${
+        disabled
+          ? theme.color.grey9
+          : buttonType !== TButtonType.primary &&
+            buttonType !== TButtonType.secondary &&
+            buttonType !== TButtonType.quaternary
+          ? theme.color.green1
+          : "unset"
+      };
+    }
+  `}
 `;

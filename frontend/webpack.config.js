@@ -4,10 +4,18 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ManifestWebpackPlugin = require("webpack-manifest-plugin");
+const LoadablePlugin = require("@loadable/webpack-plugin");
+const Dotenv = require("dotenv-webpack");
+const { GenerateSW } = require("workbox-webpack-plugin");
+
+const WEBSITE_URL = "https://www.example.com";
+const PUBLIC_PATH = "/static/frontend/";
 
 const PORT = 4000;
 
-if (process.env.NODE_ENV === "development") {
+const PRODUCTION_MODE = process.env.NODE_ENV === "production";
+
+if (!PRODUCTION_MODE) {
   console.log(
     `\n\nWhen done building, your application will be available at http://${internalIp.v4.sync()}:${PORT}\n\n\n`
   );
@@ -19,8 +27,8 @@ module.exports = {
   entry: "./index.tsx",
   output: {
     filename: "index.js",
-    path: path.resolve(__dirname, "static/frontend"),
-    publicPath: "/",
+    path: path.resolve(__dirname, PUBLIC_PATH.replace("/", "")),
+    publicPath: PRODUCTION_MODE ? PUBLIC_PATH : "/",
   },
   devtool: "source-map",
   node: { fs: "empty" },
@@ -42,6 +50,20 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new LoadablePlugin(),
+    new Dotenv(),
+    new GenerateSW({
+      // these options encourage the ServiceWorkers to get in there fast
+      // and not allow any straggling "old" SWs to hang around
+      clientsClaim: true,
+      skipWaiting: true,
+      runtimeCaching: [
+        {
+          urlPattern: new RegExp(WEBSITE_URL),
+          handler: "StaleWhileRevalidate",
+        },
+      ],
+    }),
   ],
   module: {
     rules: [
@@ -54,16 +76,20 @@ module.exports = {
         exclude: [/node_modules/],
       },
       {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
         enforce: "pre",
         test: /\.js$/,
         loader: "source-map-loader",
         exclude: [/node_modules/],
       },
       {
-        test: /\.(png|jp(e*)g|gif|svg)$/,
+        test: /\.(woff2|png|jp(e*)g|gif|svg)$/,
         loader: "file-loader",
         options: {
-          name: "icons/[name].[ext]",
+          name: "icons|fonts/[name].[ext]",
           outputPath: "assets",
         },
       },
@@ -71,7 +97,7 @@ module.exports = {
   },
   devServer: {
     publicPath: "/",
-    contentBase: "./static/frontend",
+    contentBase: `.${PUBLIC_PATH}`,
     watchContentBase: true,
     compress: true,
     port: PORT,

@@ -1,30 +1,20 @@
 import React from "react";
-import { CardWrapper, StyledCard, Title } from "./style";
+import { CardWrapper, StyledCard, ICardProps } from "./style";
+import { TStyled } from "../../utils/types";
 
-interface Props {
+interface Props extends ICardProps {
   children?: React.ReactNode;
-  withTitle?: {
-    title: string;
-    withFunction?: () => void;
-  };
+  wrapperProps?: TStyled;
 }
 
-export const Card: React.SFC<Props> = ({ children, withTitle }) => {
+export const Card: React.SFC<Props> = ({
+  children,
+  wrapperProps,
+  ...cardProps
+}) => {
   return (
-    <CardWrapper data-testid="cardWrapper">
-      <StyledCard data-testid="styledCard">
-        {withTitle && (
-          <Title
-            hoverable={!!withTitle.withFunction}
-            onClick={() =>
-              withTitle.withFunction ? withTitle.withFunction() : null
-            }
-            data-testid="title"
-            role="button"
-          >
-            {withTitle.title}
-          </Title>
-        )}
+    <CardWrapper data-testid="cardWrapper" {...wrapperProps}>
+      <StyledCard data-testid="styledCard" {...cardProps}>
         {children}
       </StyledCard>
     </CardWrapper>

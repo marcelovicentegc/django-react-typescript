@@ -1,0 +1,145 @@
+.react-multi-carousel-list {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.react-multi-carousel-track {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, transition;
+  padding-bottom: 64px !important;
+}
+.react-multiple-carousel__arrow {
+  position: absolute;
+  outline: 0;
+  transition: all 0.5s;
+  border-radius: 35px;
+  z-index: 1000;
+  border: 1.5px solid #d9d9d9;
+  background: transparent;
+  min-width: 50px;
+  min-height: 50px;
+  opacity: 1;
+  cursor: pointer;
+}
+.react-multiple-carousel__arrow:hover {
+  border-color: #294f7c;
+}
+.react-multiple-carousel__arrow--left:hover::before {
+  border-left: 2px solid #294f7c;
+  border-top: 2px solid #294f7c;
+}
+.react-multiple-carousel__arrow--right:hover::before {
+  border-right: 2px solid #294f7c;
+  border-bottom: 2px solid #294f7c;
+}
+.react-multiple-carousel__arrow::before {
+  font-size: 20px;
+  color: #fff;
+  display: block;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+.react-multiple-carousel__arrow--left {
+  right: calc(9% + 1px);
+  bottom: 0px;
+  z-index: 1201;
+}
+@media only screen and (max-width: 1024px) {
+  .react-multiple-carousel__arrow--left {
+    right: calc(15% + 1px);
+  }
+}
+@media only screen and (max-width: 500px) {
+  .react-multiple-carousel__arrow--left {
+    right: calc(22% + 1px);
+  }
+}
+.react-multiple-carousel__arrow--left::before {
+  content: "";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  display: block;
+  border-left: 2px solid #c8c8c8;
+  border-top: 2px solid #c8c8c8;
+  width: 12px;
+  height: 12px;
+  float: right;
+  transform: translate(50%, -50%) rotate(-45deg);
+}
+.react-multiple-carousel__arrow--right {
+  right: calc(4% + 1px);
+  bottom: 0px;
+  z-index: 1201;
+}
+.react-multiple-carousel__arrow--right::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  display: block;
+  border-right: 2px solid #c8c8c8;
+  border-bottom: 2px solid #c8c8c8;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.react-multi-carousel-dot-list {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  margin: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+}
+.react-multi-carousel-dot button {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  opacity: 1;
+  padding: 5px 5px 5px 5px;
+  box-shadow: none;
+  transition: background 0.5s;
+  border-width: 2px;
+  border-style: solid;
+  border-color: grey;
+  padding: 0;
+  margin: 0;
+  margin-right: 6px;
+  outline: 0;
+  cursor: pointer;
+}
+.react-multi-carousel-dot button:hover:active {
+  background: #080808;
+}
+.react-multi-carousel-dot--active button {
+  background: #080808;
+}
+.react-multi-carousel-item {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .react-multi-carousel-item {
+    flex-shrink: 0 !important;
+  }
+  .react-multi-carousel-track {
+    overflow: visible !important;
+    padding-bottom: 64px !important;
+  }
+}

@@ -2,9 +2,10 @@ module.exports = {
   presets: [
     "@babel/preset-typescript",
     "@babel/preset-env",
-    "@babel/preset-react"
+    "@babel/preset-react",
   ],
   plugins: [
+    "@loadable/babel-plugin",
     "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-modules-commonjs",
@@ -12,14 +13,14 @@ module.exports = {
     [
       "@babel/plugin-proposal-decorators",
       {
-        legacy: true
-      }
+        legacy: true,
+      },
     ],
     [
       "@babel/plugin-proposal-class-properties",
       {
-        loose: true
-      }
-    ]
-  ]
+        loose: true,
+      },
+    ],
+  ],
 };

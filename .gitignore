@@ -7,6 +7,8 @@ __pycache__
 # Django
 db.sqlite3
 .env
+core/static
+core/media
 
 # Webpack
 frontend/static/frontend
@@ -16,3 +18,15 @@ node_modules
 
 # Jest
 coverage
+
+# Debug
+.debug
+
+# VS Code
+.vscode
+
+# Ionide
+.ionide
+
+# IntelliJ
+.idea

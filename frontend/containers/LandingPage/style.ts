@@ -1,11 +1,12 @@
 import { styled } from "../../utils/theme";
 
-export const Image = styled.img`
+export const Image = styled.img<{ responsive?: boolean }>`
+  ${({ responsive }) => ` 
   height: 100%;
-  width: 100%;
-  max-width: max-content;
-  max-height: max-content;
-  object-fit: contain;
+  max-height: 597px;
+  ${!responsive ? "min-width: 100vw;" : "width: 100%; min-height: 597px;"}
+  object-fit: cover;
+  `}
 `;
 
 export const Span = styled.span`

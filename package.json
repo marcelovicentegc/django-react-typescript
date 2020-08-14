@@ -1,0 +1,22 @@
+{
+  "name": "django-react-typescript",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img alt=\"django-react-typescript logo\" src=\"assets/Logo.png\" />   <p align=\"center\">Your favorite React-Django boilerplate.</p> </p>",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"python manage.py runserver\" \"cd frontend && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcelovicentegc/django-react-typescript.git"
+  },
+  "author": "Marcelo Cardoso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcelovicentegc/django-react-typescript/issues"
+  },
+  "homepage": "https://github.com/marcelovicentegc/django-react-typescript#readme",
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  }
+}

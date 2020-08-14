@@ -1,15 +1,15 @@
 {
-  "short_name": "rtc",
-  "name": "react-typescript-client",
+  "short_name": "DRT",
+  "name": "Django-React-Typescript",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "/static/frontend/logo-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/static/frontend/index.html",
   "display": "standalone",
-  "theme_color": "#235390",
-  "background_color": "#235390"
+  "theme_color": "#0C4B33",
+  "background_color": "#0C4B33"
 }

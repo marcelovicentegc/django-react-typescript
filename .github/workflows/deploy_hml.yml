@@ -1,0 +1,155 @@
+name: Build Image, push to Registry and Deploy to HML
+on:
+  push:
+    # Publish `hml` as Docker `latest` image.
+    branches:
+      - hml
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+env:
+  IMAGE_NAME: django-react-typescript-hml
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  build-frontend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: cd frontend && npm ci
+      - run: cd frontend && npm run check --if-present
+      - run: cd frontend && npm run test:static --if-present
+      - run: cd frontend && npm test --if-present
+      - run: cd frontend && sudo npm run build --if-present
+
+  build-django:
+    runs-on: ubuntu-latest
+    needs: build-frontend
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.8]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Memcache
+        run: sudo apt-get install libmemcached-dev
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Tests
+        env:
+          TEST: 1
+        run: |
+          python manage.py test
+
+  test-image:
+    runs-on: ubuntu-latest
+    needs: build-django
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Memcache
+        run: sudo apt-get install libmemcached-dev
+      - name: Run tests
+        run: |
+          if [ -f docker-compose.test.yml ]; then
+            docker-compose --file docker-compose.test.yml build
+            docker-compose --file docker-compose.test.yml run sut
+          else
+            docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.HML_GTAG_ID }} --file Dockerfile.hml
+          fi
+
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+  push-image-to-registry:
+    # Ensure test job passes before pushing image.
+    needs: test-image
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.HML_GTAG_ID }} --file Dockerfile.hml --tag $IMAGE_NAME
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: Push image
+        run: |
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "hml" ] && VERSION=latest
+
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+
+  deploy:
+    needs: push-image-to-registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: copy docker-compose.hml.yml
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HML_HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: "docker-compose.hml.yml"
+          target: "image"
+
+      - name: execute docker-compose
+        uses: appleboy/ssh-action@master
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          CDN_NAME: ${{ secrets.CDN_NAME }}
+          CDN_API_KEY: ${{ secrets.CDN_API_KEY }}
+          CDN_API_SECRET: ${{ secrets.CDN_API_SECRET }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+        with:
+          host: ${{ secrets.HML_HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            docker login -u marcelovicentegc -p ${{ secrets.DEPLOY_TOKEN }} docker.pkg.github.com
+            cd image
+            mv docker-compose.hml.yml docker-compose.yml
+            docker-compose pull
+            MODE=production SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }} SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} SECRET_KEY=${{ secrets.SECRET_KEY }} CDN_NAME=${{ secrets.CDN_NAME }} CDN_API_KEY=${{ secrets.CDN_API_KEY }} CDN_API_SECRET=${{ secrets.CDN_API_SECRET }} DB_HOST=${{ secrets.DB_HOST }} DB_NAME=${{ secrets.DB_NAME }} DB_USER=${{ secrets.DB_USER }} DB_PASSWORD=${{ secrets.DB_PASSWORD }} DB_PORT=${{ secrets.DB_PORT }} docker-compose up -d
+            docker image prune -f

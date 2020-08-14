@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    re_path(r'^(?:.*)/?$', views.index)
+    re_path(r'^biography$|^blog$|^$', views.index, name='frontend'),
+    re_path(r'^blog/(?P<string>.+)$|^$', views.blog_post, name='frontend')
 ]

@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  web:
+    restart: always
+    image: docker.pkg.github.com/marcelovicentegc/django-react-typescript/django-react-typescript:latest
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    links:
+      - postgres:postgres
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PORT: ${DB_PORT}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CDN_NAME: ${CDN_NAME}
+      CDN_API_KEY: ${CDN_API_KEY}
+      CDN_API_SECRET: ${CDN_API_SECRET}
+      SMTP_HOST_USER: ${SMTP_HOST_USER}
+      SMTP_HOST_PASSWORD: ${SMTP_HOST_PASSWORD}
+    depends_on:
+      - postgres
+      - memcached
+    command: sh -c "python manage.py migrate && python manage.py collectstatic --no-input && python manage.py clearcache && gunicorn core.wsgi -b 0.0.0.0:8000"
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+  memcached:
+    restart: always
+    image: memcached:latest
+    ports:
+      - "11211:11211"
+
+volumes:
+  pgdata:

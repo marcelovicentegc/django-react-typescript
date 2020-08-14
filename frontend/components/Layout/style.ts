@@ -1,23 +1,24 @@
 import { styled } from "../../utils/theme";
 
-export const LayoutWrapper = styled.div`
-  height: calc(100vh - 74px);
-  background: linear-gradient(
-    180deg,
-    ${({ theme }) => theme.color.blue4},
-    transparent
-  );
+export const LayoutWrapper = styled.div<{
+  height?: number | string;
+  backgroundColor?: string;
+}>`
+  height: ${({ height }) =>
+    height
+      ? typeof height === "number"
+        ? height + "px"
+        : height
+      : "calc(100vh - 74px)"};
   display: flex;
+  background-color: ${({ backgroundColor, theme }) =>
+    backgroundColor ? backgroundColor : theme.color.white1};
 `;
 
 export const StyledLayout = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 22px;
+  flex-wrap: wrap;
   width: 100%;
-
-  @media only screen and (max-width: 650px) {
-    flex-direction: column;
-  }
 `;

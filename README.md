@@ -1,12 +1,26 @@
-# 🍰 react-typescript-django
+<p align="center">
+  <img alt="django-react-typescript logo" src="assets/Logo.png" />
+  <p align="center">Your favorite React-Django boilerplate.</p>
+</p>
+
+---
 
 ## Features
+
+| Feature                     | Status |
+| --------------------------- | ------ |
+| SSR                         | ✔️     |
+| Service workers             | ✔️     |
+| Gzip static file            | ✔️     |
+| Cache-control               | ✔️     |
+| Uploaded images compression | ✔️     |
+| CI/CD pipelines             | ✔️     |
 
 - UI library:
 
   1. **React**
 
-- State management solution:
+- State management:
 
   1. **React's Context API**
 
@@ -14,7 +28,7 @@
 
   1. **Styed Components**
 
-- Unit testing library:
+- Unit tests lib:
 
   1. **React Testing Library**
 
@@ -30,6 +44,10 @@
 
   1. **PostgreSQL**
 
-## Basic React-Django application architecture
+- Cache backend
 
-![Example architecture](./assets/exampleAppArchitecture.png)
+  1. **Memcached**
+
+## Basic architecture
+
+![Architecture](./assets/Architecture.png)
