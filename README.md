@@ -52,12 +52,12 @@ This is a fully-featured Django-React boilerplate built for great development ex
   - [Memcached](https://memcached.org/)
   - [PostgreSQL](https://www.postgresql.org/)
 
-| Other features                                                                                                       | Status      |
-| -------------------------------------------------------------------------------------------------------------------- | ----------- |
-| NGINX config file                                                                                                    | ✔️          |
-| CI/CD to Digital Ocean Droplet (the `hml-do` and `prd-do` branches will trigger Digital Ocean's deployment workflow) | ✔️          |
-| CI/CD to AWS (the `hml-aws` and `prd-aws` branches will trigger AWS' deployment workflow)                            | In progress |
-| CI/CD to Google Cloud (the `hml-gc` and `prd-gc` branches will trigger GCloud's deployment workflow)                 | In progress |
+| Other features                                                                                                                             | Status      |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| NGINX config file                                                                                                                          | ✔️          |
+| CI/CD to Digital Ocean Droplet (the `hml-do` and `prd-do` branches will trigger [Digital Ocean's deploy workflow](#Digital-Ocean-Droplet)) | ✔️          |
+| CI/CD to AWS (the `hml-aws` and `prd-aws` branches will trigger [AWS' deploy workflow](#AWS-Workflow))                                     | In progress |
+| CI/CD to Google Cloud (the `hml-gc` and `prd-gc` branches will trigger [GCloud's deployment workflow](#Google-Cloud-Workflow))             | In progress |
 
 ### Integrations
 
@@ -74,7 +74,7 @@ This is a fully-featured Django-React boilerplate built for great development ex
 4. Install dependencies: `npm i && pip install -r requirements.txt && cd frontend && npm i`
 5. Setup the project `.env` file by taking as example the `.env.example` on the root folder (refer to [configuration](#Configuration) for more details)
 6. Setup the frontend app's `frontend/.env` file by taking as example the `frontend/.env.example` file (refer to [configuration](#Configuration) for more details)
-7. Start the application: `npm start`
+7. Start the application: `npm start` (make sure Postgres is up and running)
 
 ## Configuration
 
@@ -104,7 +104,7 @@ You should configure these variables on a `.env` file on the root folder for the
 
 | Environment variable | Must be                                                                                              |
 | -------------------- | ---------------------------------------------------------------------------------------------------- |
-| MODE                 | `production`                                                                                         |
+| MODE                 | `production`. This is hardcoded on the [Dockerfile](./Dockerfile)                                    |
 | ALLOWED_HOSTS        | A set of hosts allowed to pass CORS policy. I.g: "www.example.com" "example.com"                     |
 | HML_ALLOWED_HOSTS    | Same as ALLOWED_HOSTS but for a HML environment                                                      |
 | DEPLOY_TOKEN         | A Github token with permission to pull this project's image from your Github registry                |
@@ -116,25 +116,38 @@ You should configure these variables on a `.env` file on the root folder for the
 
 ### Frontend
 
-| Environment variable | Default       | Description                                                                                                                                       |
-| -------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NODE_ENV             | `development` |                                                                                                                                                   |
-| AUTH_TOKEN           | -             | An auth key generated on Django's admin that must be associated to a user with specific permissions (i.g.: read specific infos from Django's ORM) |
-| GTAG_ID              | -             | Google Analytics ID                                                                                                                               |
+| Environment variable | Default       | Description                                                                                                                                                                                                                                   |
+| -------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NODE_ENV             | `development` | Let's Webpack know when to build files to correct public path, optimize code and when to prepend localhost for API endpoints or not. Values must be either `development` or `production`. This is hardcoded on the [Dockerfile](./Dockerfile) |
+| AUTH_TOKEN           | -             | An auth key generated on Django's admin that must be associated to a user with specific permissions (i.g.: read specific infos from Django's ORM)                                                                                             |
+| GTAG_ID              | -             | Google Analytics ID                                                                                                                                                                                                                           |
 
 #### Exclusively used in production
 
 | Environment variable | Must be                                    |
 | -------------------- | ------------------------------------------ |
-| NODE_ENV             | `production`                               |
 | HML_AUTH_KEY         | Same as AUTH_KEY but for a HML environment |
 | HML_GTAG_ID          | Same as GTAG_ID but for a HML environment  |
 
-## Deployment worfklow
+## Deployment worfklows
 
 ### Digital Ocean Droplet
 
+Branches `hml-do` and `prd-do` will trigger this workflow.
+
 ![Digital Ocean Droplet deploy workflow](./assets/DigitalOceanDeploySteps.jpg)
+
+### AWS Workflow
+
+Branches `hml-aws` and `prd-aws` will trigger this workflow.
+
+In progress...
+
+### Google Cloud Workflow
+
+Branches `hml-gc` and `prd-gc` will trigger this workflow.
+
+In progress...
 
 ## Basic architecture
 
