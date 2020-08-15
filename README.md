@@ -25,14 +25,14 @@ This is a fully-featured Django-React boilerplate built for great development ex
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 - [Webpack](https://webpack.js.org/)
 
-| Other features              | Status |
-| --------------------------- | ------ |
-| SSR ready                   | ✔️     |
-| Service workers             | ✔️     |
-| Gzip static file gen        | ✔️     |
-| Cache control               | ✔️     |
-| Code split and lazy loading | ✔️     |
-| Google Analytics ready      | ✔️     |
+| Other features              | Status      |
+| --------------------------- | ----------- |
+| SSR ready                   | In progress |
+| Service workers             | ✔️          |
+| Gzip static file gen        | ✔️          |
+| Cache control               | ✔️          |
+| Code split and lazy loading | ✔️          |
+| Google Analytics ready      | ✔️          |
 
 ### Backend
 
@@ -68,7 +68,7 @@ This is a fully-featured Django-React boilerplate built for great development ex
 1. Clone this repo: `git clone https://github.com/marcelovicentegc/django-react-typescript.git`
 2. Create a virtual environment: `python -m venv venv`
 3. Activate it ☝️: `source venv/bin/activate` or `venv\Scripts\activate` if you're on a Windows
-4. Install dependencies: `pip install -r requirements.txt && cd frontend && npm i`
+4. Install dependencies: `npm i && pip install -r requirements.txt && cd frontend && npm i`
 5. Setup the project `.env` file by taking as example the `.env.example` on the root folder (refer to [configuration](#Configuration) for more details)
 6. Setup the frontend app's `frontend/.env` file by taking as example the `frontend/.env.example` file (refer to [configuration](#Configuration) for more details)
 7. Start the application: `npm start`
