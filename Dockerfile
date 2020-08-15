@@ -15,10 +15,11 @@ RUN cd frontend \
 # Build Django
 FROM python:3.8-slim-buster
 WORKDIR /usr/src/app
+ARG ALLOWED_HOSTS
+ENV ALLOWED_HOSTS $ALLOWED_HOSTS
 ENV PYTHONDONTWRITEBYTECODE 0
 ENV PYTHONUNBUFFERED 0
 ENV MODE "production"
-ENV ALLOWED_HOSTS "www.example.com" "example.com" "localhost"
 RUN apt-get update && \
     apt-get install --no-install-recommends -y build-essential postgresql-common libpq-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
