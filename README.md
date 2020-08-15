@@ -130,6 +130,12 @@ You should configure these variables on a `.env` file on the root folder for the
 | HML_AUTH_KEY         | Same as AUTH_KEY but for a HML environment |
 | HML_GTAG_ID          | Same as GTAG_ID but for a HML environment  |
 
+## Deployment worfklow
+
+### Digital Ocean Droplet
+
+![Digital Ocean Droplet deploy workflow](./assets/DigitalOceanDeploySteps.jpg)
+
 ## Basic architecture
 
 ![Architecture](./assets/Architecture.png)
