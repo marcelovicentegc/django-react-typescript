@@ -102,6 +102,7 @@ You should configure these variables on a `.env` file on the root folder for the
 
 | Environment variable | Must be                                                                                              |
 | -------------------- | ---------------------------------------------------------------------------------------------------- |
+| IMAGE_NAME           | Docker image name (for HML, it will append `-hml` on its name)                                       |
 | MODE                 | `production`. This is hardcoded on the [Dockerfile](./Dockerfile)                                    |
 | ALLOWED_HOSTS        | A set of hosts allowed to pass CORS policy. I.g: "www.example.com" "example.com"                     |
 | HML_ALLOWED_HOSTS    | Same as ALLOWED_HOSTS but for a HML environment                                                      |

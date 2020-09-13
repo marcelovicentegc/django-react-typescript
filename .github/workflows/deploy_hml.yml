@@ -12,9 +12,6 @@ on:
   # Run tests for any PRs.
   pull_request:
 
-env:
-  IMAGE_NAME: django-react-typescript-hml
-
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
@@ -89,12 +86,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build image
-        run: docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.HML_GTAG_ID }} --build-arg ALLOWED_HOSTS=${{ secrets.HML_ALLOWED_HOSTS }} --file Dockerfile.hml --tag $IMAGE_NAME
+        run: docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.HML_GTAG_ID }} --build-arg ALLOWED_HOSTS=${{ secrets.HML_ALLOWED_HOSTS }} --file Dockerfile.hml --tag ${{ secrets.IMAGE_NAME }}-hml
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: Push image
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/${{ secrets.IMAGE_NAME }}-hml
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -111,7 +108,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker tag ${{ secrets.IMAGE_NAME }}-hml $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
   deploy:
