@@ -52,12 +52,10 @@ This is a fully-featured Django-React boilerplate built for great development ex
   - [Memcached](https://memcached.org/)
   - [PostgreSQL](https://www.postgresql.org/)
 
-| Other features                                                                                                                             | Status      |
-| ------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| NGINX config file                                                                                                                          | ✔️          |
-| CI/CD to Digital Ocean Droplet (the `hml-do` and `prd-do` branches will trigger [Digital Ocean's deploy workflow](#Digital-Ocean-Droplet)) | ✔️          |
-| CI/CD to AWS (the `hml-aws` and `prd-aws` branches will trigger [AWS' deploy workflow](#AWS-Workflow))                                     | In progress |
-| CI/CD to Google Cloud (the `hml-gc` and `prd-gc` branches will trigger [GCloud's deployment workflow](#Google-Cloud-Workflow))             | In progress |
+| Other features                                                                                                                                                                                | Status |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| NGINX config file                                                                                                                                                                             | ✔️     |
+| CI/CD to any V.M. (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc) accessible via SSH (the `hml` and `prd` branches will trigger the [deploy workflow](#Deploy-Workflow)) | ✔️     |
 
 ### Integrations
 
@@ -131,23 +129,11 @@ You should configure these variables on a `.env` file on the root folder for the
 
 ## Deployment worfklows
 
-### Digital Ocean Droplet
+### Deploy Workflow
 
-Branches `hml-do` and `prd-do` will trigger this workflow.
+Branches `hml` and `prd` will trigger this workflow.
 
-![Digital Ocean Droplet deploy workflow](./assets/DigitalOceanDeploySteps.jpg)
-
-### AWS Workflow
-
-Branches `hml-aws` and `prd-aws` will trigger this workflow.
-
-In progress...
-
-### Google Cloud Workflow
-
-Branches `hml-gc` and `prd-gc` will trigger this workflow.
-
-In progress...
+![Deploy workflow](./assets/DeployWorkflow.jpg)
 
 ## Basic architecture
 

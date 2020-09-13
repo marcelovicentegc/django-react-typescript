@@ -2,9 +2,9 @@ name: Build Image, push to Registry and Deploy to Digital Ocean's PRD
 
 on:
   push:
-    # Publish `prd-do` as Docker `latest` image.
+    # Publish `prd` as Docker `latest` image.
     branches:
-      - prd-do
+      - prd
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -102,7 +102,7 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "prd-do" ] && VERSION=latest
+          [ "$VERSION" == "prd" ] && VERSION=latest
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
@@ -114,9 +114,9 @@ jobs:
     needs: push-image-to-registry
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@prd-do
+      - uses: actions/checkout@prd
       - name: copy docker-compose.yml
-        uses: appleboy/scp-action@prd-do
+        uses: appleboy/scp-action@prd
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -126,7 +126,7 @@ jobs:
           target: "image"
 
       - name: execute docker-compose
-        uses: appleboy/ssh-action@prd-do
+        uses: appleboy/ssh-action@prd
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           CDN_NAME: ${{ secrets.CDN_NAME }}

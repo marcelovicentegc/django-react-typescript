@@ -1,9 +1,9 @@
 name: Build Image, push to Registry and Deploy to HML
 on:
   push:
-    # Publish `hml-do` as Docker `latest` image.
+    # Publish `hml` as Docker `latest` image.
     branches:
-      - hml-do
+      - hml
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -106,7 +106,7 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "hml-do" ] && VERSION=latest
+          [ "$VERSION" == "hml" ] && VERSION=latest
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
@@ -118,9 +118,9 @@ jobs:
     needs: push-image-to-registry
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@hml-do
+      - uses: actions/checkout@hml
       - name: copy docker-compose.hml.yml
-        uses: appleboy/scp-action@hml-do
+        uses: appleboy/scp-action@hml
         with:
           host: ${{ secrets.HML_HOST }}
           username: ${{ secrets.USERNAME }}
@@ -130,7 +130,7 @@ jobs:
           target: "image"
 
       - name: execute docker-compose
-        uses: appleboy/ssh-action@hml-do
+        uses: appleboy/ssh-action@hml
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           CDN_NAME: ${{ secrets.CDN_NAME }}
