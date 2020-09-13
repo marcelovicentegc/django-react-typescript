@@ -57,4 +57,4 @@ class PublicationEndpoint(APIView):
       
             return Response(formatted_publication)
         except Publication.DoesNotExist:
-            return Response('A publicação ainda não existe.')
+            return Response("This publication doesn't exist yet.")

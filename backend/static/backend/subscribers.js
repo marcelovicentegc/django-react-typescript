@@ -1,4 +1,4 @@
 window.onload = function () {
   document.getElementById("searchbar").placeholder =
-    "Pesquise por nome ou bairro";
+    "Search for name or neighborhood";
 };
