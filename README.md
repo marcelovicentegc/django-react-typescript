@@ -51,11 +51,13 @@ This is a fully-featured Django-React boilerplate built for great development ex
 - Docker image featuring
   - [Memcached](https://memcached.org/)
   - [PostgreSQL](https://www.postgresql.org/)
+- [Supervisor](http://supervisord.org/) (optional, should be used if you're deploying on a non-virtualized system)
 
-| Other features                                                                                                                                                                                | Status |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| NGINX config file                                                                                                                                                                             | ✔️     |
-| CI/CD to any V.M. (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc) accessible via SSH (the `hml` and `prd` branches will trigger the [deploy workflow](#Deploy-Workflow)) | ✔️     |
+| Other features                                                                                                                                                                                            | Status |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| NGINX config file                                                                                                                                                                                         | ✔️     |
+| CI/CD to any V.M. (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc) accessible via SSH (the `hml` and `prd` branches will trigger the [deploy workflow](#Virtualized-Deploy-Workflow)) | ✔️     |
+| CI/CD to deploy straight on host (without virtualization; not recommended) (the branch `prd-host` will trigger this. See more on the [host deploy workflow](#Host-Deploy-Workflow) method)                | ✔️     |
 
 ### Integrations
 
@@ -130,11 +132,15 @@ You should configure these variables on a `.env` file on the root folder for the
 
 ## Deployment worfklows
 
-### Deploy Workflow
+### Virtualized Deploy Workflow
 
 Branches `hml` and `prd` will trigger this workflow.
 
 ![Deploy workflow](./assets/DeployWorkflow.jpg)
+
+### Host Deploy Workflow
+
+For this kind of deploy to work, you will need a running Postgres database, Nginx, and Supervisor processes.
 
 ## Basic architecture
 

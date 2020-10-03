@@ -6,6 +6,7 @@ on:
       - "**"
       - "!hml"
       - "!prd"
+      - "!prd-host"
 
 jobs:
   # Run tests.
