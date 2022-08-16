@@ -145,3 +145,8 @@ For this kind of deploy to work, you will need a running Postgres database, Ngin
 ## Basic architecture
 
 ![Architecture](./assets/Architecture.png)
+
+
+### Infrastructure model
+
+![Insfrastructure model](.infragenie/infrastructure_model.png)
