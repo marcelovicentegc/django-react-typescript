@@ -144,7 +144,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            docker login -u marcelovicentegc -p ${{ secrets.DEPLOY_TOKEN }} docker.pkg.github.com
+            docker login -u arbhutale -p ${{ secrets.DEPLOY_TOKEN }} docker.pkg.github.com
             cd image
             mv docker-compose.hml.yml docker-compose.yml
             docker-compose pull
