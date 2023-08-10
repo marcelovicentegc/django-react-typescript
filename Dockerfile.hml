@@ -9,7 +9,7 @@ ENV NODE_ENV production
 ADD ./frontend/ /usr/src/app/frontend/
 RUN cd frontend \
     && npm ci \
-    && echo $'NODE_ENV=production\nAUTH_TOKEN='$AUTH_TOKEN'\nGTAG_ID='$GTAG_ID >> .env \
+    && echo $'NODE_ENV=production\nAUTH_TOKEN='$AUTH_TOKEN'\nGTAG_ID='$GTAG_ID \
     && npm run build
 
 # Build Django
