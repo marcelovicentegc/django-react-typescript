@@ -119,7 +119,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: copy docker-compose.yml
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v0.1.3
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -129,7 +129,7 @@ jobs:
           target: "image"
 
       - name: execute docker-compose
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.3
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           CDN_NAME: ${{ secrets.CDN_NAME }}
