@@ -146,7 +146,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            docker login -u marcelovicentegc -p ${{ secrets.DEPLOY_TOKEN }} docker.pkg.github.com
+            docker login -u arbhutale -p ${{ secrets.DEPLOY_TOKEN }} docker.pkg.github.com
             cd image
             docker-compose pull
             MODE=production SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }} SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} SECRET_KEY=${{ secrets.SECRET_KEY }} CDN_NAME=${{ secrets.CDN_NAME }} CDN_API_KEY=${{ secrets.CDN_API_KEY }} CDN_API_SECRET=${{ secrets.CDN_API_SECRET }} DB_HOST=${{ secrets.DB_HOST }} DB_NAME=${{ secrets.DB_NAME }} DB_USER=${{ secrets.DB_USER }} DB_PASSWORD=${{ secrets.DB_PASSWORD }} DB_PORT=${{ secrets.DB_PORT }} docker-compose up -d
