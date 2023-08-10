@@ -3,7 +3,7 @@ on:
   push:
     # Publish `hml` as Docker `latest` image.
     branches:
-      - master
+      - hml
 
     # Publish `v1.2.3` tags as releases.
     tags:
