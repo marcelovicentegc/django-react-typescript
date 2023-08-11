@@ -2,7 +2,7 @@ name: Login into host machine, build and start the app's daemon
 on:
   push:
     branches:
-      - prd-host
+      - master
 
 jobs:
   build-frontend:
