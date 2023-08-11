@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: export NODE_OPTIONS=--openssl-legacy-provider
+      - run: set NODE_OPTIONS=--openssl-legacy-provider
       - run: cd frontend && npm ci
       - run: cd frontend && npm run check --if-present
       - run: cd frontend && npm run test:static --if-present
