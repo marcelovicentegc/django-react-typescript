@@ -12,7 +12,7 @@
     }
   },
   "scripts": {
-    "build": "cross-env webpack --config webpack.config.js",
+    "build": "cross-env --openssl-legacy-provider webpack --config webpack.config.js",
     "postinstall": "rm -rf node_modules/@types/react-native",
     "start": "cross-env webpack-dev-server --progress --host 0.0.0.0",
     "test:static": "tsc -p tsconfig.json --noEmit",
