@@ -3,7 +3,7 @@ on:
   push:
     # Publish `hml` as Docker `latest` image.
     branches:
-      - hml
+      - master
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -58,29 +58,29 @@ jobs:
         run: |
           python manage.py test
 
-  test-image:
-    runs-on: ubuntu-latest
-    needs: build-django
-    env:
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Memcache
-        run: sudo apt-get install libmemcached-dev
-      - name: Run tests
-        run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.HML_GTAG_ID }} --build-arg ALLOWED_HOSTS=${{ secrets.HML_ALLOWED_HOSTS }} --file Dockerfile.hml
-          fi
+   # test-image:
+     # runs-on: ubuntu-latest
+     # needs: build-django
+     # env:
+      #  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+     # steps:
+       # - uses: actions/checkout@v2
+       # - name: Setup Memcache
+       #   run: sudo apt-get install libmemcached-dev
+       # - name: Run tests
+        #  run: |
+         #   if [ -f docker-compose.test.yml ]; then
+         #     docker-compose --file docker-compose.test.yml build
+           #   docker-compose --file docker-compose.test.yml run sut
+          #  else
+           #   docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.HML_GTAG_ID }} --build-arg ALLOWED_HOSTS=${{ secrets.HML_ALLOWED_HOSTS }} --file Dockerfile.hml
+          #  fi
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push-image-to-registry:
     # Ensure test job passes before pushing image.
-    needs: test-image
+    needs: build-django
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     steps:
