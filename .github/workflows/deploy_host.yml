@@ -22,7 +22,7 @@ jobs:
       - run: cd frontend && npm run check --if-present
       - run: cd frontend && npm run test:static --if-present
       - run: cd frontend && npm test --if-present
-      - run: cd frontend && NODE_OPTIONS=--openssl-legacy-provider sudo npm run build --if-present
+      - run: cd frontend && sudo NODE_OPTIONS=--openssl-legacy-provider npm run build --if-present
 
   build-django:
     runs-on: ubuntu-latest
