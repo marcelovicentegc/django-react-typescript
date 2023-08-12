@@ -132,7 +132,7 @@ jobs:
 
       - name: print global variables
         run: |
-          echo SECRET_KEY= ${{ secrets.SECRET_KEY }}'
+          echo SECRET_KEY= ${{ secrets.SECRET_KEY }}
           echo SECRET_KEY=${{ secrets.SECRET_KEY }}
           echo SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} 
           echo SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }}
