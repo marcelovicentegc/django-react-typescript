@@ -56,21 +56,21 @@ jobs:
         run: |
           python manage.py test
 
-  #test-image:
-    #runs-on: ubuntu-latest
-    #needs: build-django
-    #env:
-      #SECRET_KEY: ${{ secrets.SECRET_KEY }}
-    #steps:
-      #- uses: actions/checkout@v2
-      #- name: Run tests
-        #run: |
-          #if [ -f docker-compose.test.yml ]; then
-            #docker-compose --file docker-compose.test.yml build
-            #docker-compose --file docker-compose.test.yml run sut
-          #else
-            #docker build . --build-arg AUTH_TOKEN=${{ secrets.AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.GTAG_ID }} --build-arg ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} --file Dockerfile
-          #fi
+  test-image:
+    runs-on: ubuntu-latest
+    needs: build-django
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: |
+          if [ -f docker-compose.test.yml ]; then
+            docker-compose --file docker-compose.test.yml build
+            docker-compose --file docker-compose.test.yml run sut
+          else
+            docker build . --build-arg AUTH_TOKEN=${{ secrets.AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.GTAG_ID }} --build-arg ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} --file Dockerfile
+          fi
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
