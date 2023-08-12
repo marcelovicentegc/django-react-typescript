@@ -42,12 +42,10 @@ jobs:
         python-version: [3.8]
     steps:
       - uses: actions/checkout@v2
-      
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
-      - name: variable
       - run: |
          echo SECRET_KEY= ${{ secrets.SECRET_KEY }} >> .env
          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
