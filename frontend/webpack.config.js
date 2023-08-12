@@ -8,7 +8,7 @@ const LoadablePlugin = require("@loadable/webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const { GenerateSW } = require("workbox-webpack-plugin");
 
-const WEBSITE_URL = "https://www.example.com";
+const WEBSITE_URL = "http://146.190.113.62";
 const PUBLIC_PATH = "/static/frontend/";
 
 const PORT = 4000;
