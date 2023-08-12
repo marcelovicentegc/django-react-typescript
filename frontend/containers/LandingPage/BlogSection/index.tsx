@@ -298,7 +298,7 @@ export const BlogSection: React.FC<IProps> = ({ data: blogCarouselData }) => {
               window.open(
                 NODE_ENV === "production"
                   ? "/admin/backend/publication"
-                  : "http://localhost:8000/admin/backend/publication",
+                  : "http://146.190.113.62/admin/backend/publication",
                 "_blank"
               )
             }

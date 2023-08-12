@@ -5,7 +5,7 @@ AH = os.environ.get('ALLOWED_HOSTS')
 if AH:
     ALLOWED_HOSTS = AH.split(' ')
 
-DEBUG = False
+DEBUG = TRue
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True

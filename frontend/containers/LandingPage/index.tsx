@@ -78,7 +78,7 @@ const LandingPage: React.FC = () => {
                   window.open(
                     PRODUCTION
                       ? "/admin/authtoken/token/add/"
-                      : "http://localhost:8000/admin/authtoken/token/add/",
+                      : "http://146.190.113.62/admin/authtoken/token/add/",
                     "_blank"
                   )
                 }

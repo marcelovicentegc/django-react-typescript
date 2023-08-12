@@ -12,7 +12,7 @@ import { getSecrets } from "../config";
 const { NODE_ENV, AUTH_TOKEN } = getSecrets();
 
 const PRODUCTION_MODE = NODE_ENV === "production";
-const LOCAL_API_URL = "http://localhost:8000";
+const LOCAL_API_URL = "http://146.190.113.62";
 
 export function useApi() {
   const getHeaders = new Headers({
