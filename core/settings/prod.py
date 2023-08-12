@@ -5,14 +5,15 @@ AH = os.environ.get('ALLOWED_HOSTS')
 if AH:
     ALLOWED_HOSTS = AH.split(' ')
 
-DEBUG = TRue
+DEBUG = TRUE
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 USE_X_FORWARDED_PORT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-
+CSRF_TRUSTED_ORIGINS = ['http://146.190.113.62/', 'http://146.190.113.62']
+CSRF_COOKIE_SECURE = False
 # Sentry 
 
 import sentry_sdk
