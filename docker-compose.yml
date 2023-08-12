@@ -29,9 +29,6 @@ services:
     volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles
-    ports:
-      - 8000:8000
-    env_file: .env
 
   nginx:
     image: docker.pkg.github.com/arbhutale/personal-api/nginx:latest
@@ -39,7 +36,7 @@ services:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles
     ports:
-      - 80:80
+      - 80:8000
     depends_on:
       - web
   
