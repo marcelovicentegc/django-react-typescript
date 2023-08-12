@@ -112,6 +112,15 @@ jobs:
 
           docker tag ${{ secrets.IMAGE_NAME }} $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+          echo SECRET_KEY= ${{ secrets.SECRET_KEY }}
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }}
+          echo SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} 
+          echo SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }}
+          echo DB_USER=${{ secrets.DB_USER }}
+          echo DB_PORT=${{ secrets.DB_PORT }}
+          echo DB_NAME=${{ secrets.DB_NAME }}
+          echo DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          echo DB_HOST=${{ secrets.DB_HOST }}
 
   deploy:
     needs: push-image-to-registry
@@ -130,17 +139,6 @@ jobs:
           source: "docker-compose.yml"
           target: "image"
 
-      - name: print global variables
-        run: |
-          echo SECRET_KEY= ${{ secrets.SECRET_KEY }}
-          echo SECRET_KEY=${{ secrets.SECRET_KEY }}
-          echo SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} 
-          echo SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }}
-          echo DB_USER=${{ secrets.DB_USER }}
-          echo DB_PORT=${{ secrets.DB_PORT }}
-          echo DB_NAME=${{ secrets.DB_NAME }}
-          echo DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-          echo DB_HOST=${{ secrets.DB_HOST }}
       - name: execute docker-compose
         uses: appleboy/ssh-action@master
         env:
