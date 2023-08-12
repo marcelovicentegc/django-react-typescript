@@ -47,8 +47,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: |
-         echo SECRET_KEY= ${{ secrets.SECRET_KEY }} >> .env
-         echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
          echo SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} >> .env
          echo SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }} >> .env
          echo DB_USER=${{ secrets.DB_USER }} >> .env
