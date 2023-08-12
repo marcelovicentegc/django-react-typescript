@@ -29,6 +29,7 @@ services:
     volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles
+    env_file: .env
 
   nginx:
     image: docker.pkg.github.com/arbhutale/personal-api/nginx:latest
