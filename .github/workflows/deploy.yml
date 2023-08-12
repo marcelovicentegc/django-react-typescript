@@ -27,17 +27,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: |
-         echo SECRET_KEY= ${{ secrets.SECRET_KEY }} >> .env
-         echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-         echo SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} >> .env
-         echo SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }} >> .env
-         echo DB_USER=${{ secrets.DB_USER }} >> .env
-         echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-         echo DB_NAME=${{ secrets.DB_NAME }} >> .env
-         echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
-         echo DB_HOST=${{ secrets.DB_HOST }} >> .env
-         echo cat .env
       - run: cd frontend && npm ci
       - run: cd frontend && npm run check --if-present
       - run: cd frontend && npm run test:static --if-present
@@ -53,6 +42,18 @@ jobs:
         python-version: [3.8]
     steps:
       - uses: actions/checkout@v2
+      - name: variable
+      - run: |
+         echo SECRET_KEY= ${{ secrets.SECRET_KEY }} >> .env
+         echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+         echo SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} >> .env
+         echo SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }} >> .env
+         echo DB_USER=${{ secrets.DB_USER }} >> .env
+         echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+         echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+         echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
+         echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+         echo cat .env
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
