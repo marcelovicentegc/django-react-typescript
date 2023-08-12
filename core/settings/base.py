@@ -25,6 +25,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 if (PRODUCTION_MODE):
@@ -68,16 +69,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
     'django.contrib.sites',
     'rest_framework.authtoken',
     'corsheaders',
     'rest_framework',
+   
     'django_better_admin_arrayfield',
     'django_filters',
     'frontend',
     'backend',
     'api',
-    'api.user',
+    'api.users',
     'cloudinary'
 ]
 
