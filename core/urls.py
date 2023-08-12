@@ -14,13 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import re_path, include
+from django.urls import re_path, include, path
 from core.settings.base import STATIC_ROOT, MEDIA_ROOT
 from django.views.static import serve
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from api.users.views import UserAPIView
+
 
 admin.site.site_header = "Django-React-Typescript Admin"
 admin.site.site_title = "Django-React-Typescript Admin"
 admin.site.index_title = "Modules"
+
 
 def trigger_error(request):
     division_by_zero = 1 / 0
@@ -34,4 +41,7 @@ urlpatterns = [
         'document_root': MEDIA_ROOT,
     }),
     re_path(r'^', include('frontend.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/user/', UserAPIView.as_view(), name='user'),
 ]
