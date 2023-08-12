@@ -29,6 +29,7 @@ multidict==6.0.4
 openapi-codec==1.3.2
 packaging==23.1
 Pillow==10.0.0
+psycopg2-binary==2.9.7
 PyJWT==2.8.0
 python-dotenv==1.0.0
 python-memcached==1.59
