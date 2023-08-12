@@ -42,6 +42,11 @@ jobs:
         python-version: [3.8]
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: variable
       - run: |
          echo SECRET_KEY= ${{ secrets.SECRET_KEY }} >> .env
@@ -54,10 +59,6 @@ jobs:
          echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
          echo DB_HOST=${{ secrets.DB_HOST }} >> .env
          echo cat .env
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
