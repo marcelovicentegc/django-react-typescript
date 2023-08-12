@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     'frontend',
     'backend',
     'api',
-    'aoi.user'
+    'api.user'
     'cloudinary'
 ]
 
