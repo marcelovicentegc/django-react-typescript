@@ -44,14 +44,11 @@ services:
     restart: always
     image: postgres:latest
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
-    network_mode: bridge
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     volumes:
       - pgdata:/var/lib/postgresql/data/
 
