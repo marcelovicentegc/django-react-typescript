@@ -35,7 +35,7 @@ CORS_ORIGIN_WHITELIST = [
     'https://example.com',
     'https://www.example.com',
     'http://146.190.113.62',
-    'http://www.146.190.113.62
+    'http://www.146.190.113.62',
 ]
 
 # DRF
