@@ -15,6 +15,7 @@ import os
 PRODUCTION_MODE = (os.getenv('MODE') == 'production')
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://146.190.113.62/']
 
 # Django Rest Framework
 # https://www.django-rest-framework.org/
