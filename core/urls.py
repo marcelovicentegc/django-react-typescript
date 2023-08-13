@@ -50,17 +50,16 @@ schema_view = get_schema_view(
  
 urlpatterns = [
     re_path(r'^sentry-debug/', trigger_error),
-    
     re_path(r'^admin/', admin.site.urls),
+    re_path(r'^static/(?P<path>.*)$', serve, { 'document_root' : STATIC_ROOT, }),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/user/', UserAPIView.as_view(), name='user'), 
     re_path(r'^api/', include('api.urls')),
-    re_path(r'^static/(?P<path>.*)$', serve, { 'document_root' : STATIC_ROOT, }), 
     re_path(r'^media/(?P<path>.*)$', serve, {
         'document_root': MEDIA_ROOT,
     }),
     re_path(r'^', include('frontend.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/user/', UserAPIView.as_view(), name='user'), 
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
