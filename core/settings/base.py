@@ -77,7 +77,7 @@ INSTALLED_APPS = [
    
     'django_better_admin_arrayfield',
     'django_filters',
-    'frontend',
+    # 'frontend',
     'backend',
     'api',
     'api.users',
