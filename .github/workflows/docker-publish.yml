@@ -39,6 +39,9 @@ jobs:
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     # Ensure test job passes before pushing image.
+    permissions:
+      contents: read
+      packages: write
     needs: test
 
     runs-on: ubuntu-latest
