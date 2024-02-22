@@ -137,7 +137,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
             docker login -u marcelovicentegc -p ${{ secrets.DEPLOY_TOKEN }} docker.pkg.github.com
