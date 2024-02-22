@@ -78,7 +78,7 @@ jobs:
     # Ensure test job passes before pushing image.
     needs: test-image
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    # if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v2
       - name: Build image
