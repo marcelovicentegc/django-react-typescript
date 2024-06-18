@@ -58,8 +58,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='w%h-ok)&7l2e@1&ht!#ol3!!qg9zw
 
 # Application definition
 
-INSTALLED_APPS = [
-    'admin_menu',
+INSTALLED_APPS = [ 
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,9 +81,9 @@ INSTALLED_APPS = [
 # https://github.com/cdrx/django-admin-menu
 
 ADMIN_STYLE = {
-    'primary-color': '#0C4B33',
-    'secondary-color': '#44B78B',
-    'tertiary-color': '#F2F9FC'
+    'primary-color': '#164B36',
+    'secondary-color': '#092117',
+    'tertiary-color': '#51B48E'
 }
 
 ADMIN_LOGO = 'backend/logo.png'

@@ -3,14 +3,24 @@
 
 <p align="center">
   <img alt="django-react-typescript logo" src="assets/Logo.png" />
-  <p align="center">Your favorite React-Django boilerplate.</p>
+  <p align="center">Fully-featured, up-to-date React-Django boilerplate with great.</p>
 </p>
 
 ---
 
-## About
-
 This is a fully-featured Django-React boilerplate built for great development experience and easy deployment.
+
+## Development 
+
+### Database
+
+To start developing on this project, you will need a Postgres database instance running. It doesn 't matter if it's a local instance or a remote one. Just make sure to set up a Postgres database and configure the `.env` file with the correct credentials.
+
+For convenience, if you want to use Docker + Docker Compose to spin up a Postgres instance locally, with pgAdmin using alongisde, use the following command:
+
+```sh
+pnpm run dev:db:up
+```
 
 ### Global
 
@@ -28,12 +38,12 @@ This is a fully-featured Django-React boilerplate built for great development ex
 | Other features              | Status      |
 | --------------------------- | ----------- |
 | SSR ready                   | In progress |
-| Service workers             | ✔️          |
-| Gzip static file gen        | ✔️          |
-| Cache control               | ✔️          |
-| Code split and lazy loading | ✔️          |
-| Google Analytics ready      | ✔️          |
-| PWA ready                   | ✔️          |
+| Service workers             | ✔️           |
+| Gzip static file gen        | ✔️           |
+| Cache control               | ✔️           |
+| Code split and lazy loading | ✔️           |
+| Google Analytics ready      | ✔️           |
+| PWA ready                   | ✔️           |
 
 ### Backend
 
@@ -43,8 +53,8 @@ This is a fully-featured Django-React boilerplate built for great development ex
 
 | Other features       | Status |
 | -------------------- | ------ |
-| Token authentication | ✔️     |
-| SMTP ready           | ✔️     |
+| Token authentication | ✔️      |
+| SMTP ready           | ✔️      |
 
 ### Infrastructure
 
@@ -55,9 +65,9 @@ This is a fully-featured Django-React boilerplate built for great development ex
 
 | Other features                                                                                                                                                                                            | Status |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| NGINX config file                                                                                                                                                                                         | ✔️     |
-| CI/CD to any V.M. (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc) accessible via SSH (the `hml` and `prd` branches will trigger the [deploy workflow](#Virtualized-Deploy-Workflow)) | ✔️     |
-| CI/CD to deploy straight on host (without virtualization; not recommended) (the branch `prd-host` will trigger this. See more on the [host deploy workflow](#Host-Deploy-Workflow) method)                | ✔️     |
+| NGINX config file                                                                                                                                                                                         | ✔️      |
+| CI/CD to any V.M. (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc) accessible via SSH (the `hml` and `prd` branches will trigger the [deploy workflow](#Virtualized-Deploy-Workflow)) | ✔️      |
+| CI/CD to deploy straight on host (without virtualization; not recommended) (the branch `prd-host` will trigger this. See more on the [host deploy workflow](#Host-Deploy-Workflow) method)                | ✔️      |
 
 ### Integrations
 
