@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "<p align=\"center\">   <img alt=\"django-react-typescript logo\" src=\"assets/Logo.png\" />   <p align=\"center\">Your favorite React-Django boilerplate.</p> </p>",
   "scripts": {
+    "bootstrap": "concurrently \"pnpm i\" \"poetry install\" \"cd frontend && pnpm i\"",
     "setup:env": "sh ./scripts/setup_env.sh",
     "dev:db:up": "docker compose -f ./docker-compose-dev-db.yml up",
     "dev:db:migrate": "poetry run python3 manage.py migrate",
     "dev:db:makemigrations": "poetry run python3 manage.py makemigrations",
     "dev:backend": "poetry run python3 manage.py runserver",
     "dev:frontend": "cd frontend && pnpm i && pnpm run dev",
-    "dev": "concurrently \"pnpm run dev:backend\" \"cd frontend && npm start\""
+    "dev": "concurrently \"pnpm run dev:backend\" \"pnpm run dev:frontend\""
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,6 @@
   },
   "homepage": "https://github.com/marcelovicentegc/django-react-typescript#readme",
   "dependencies": {
-    "concurrently": "^5.2.0"
+    "concurrently": "^8.2.2"
   }
 }
