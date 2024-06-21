@@ -20,7 +20,7 @@ django-filter = "^24.2"
 django-better-admin-arrayfield = "^1.4.2"
 twilio = "^9.1.1"
 psycopg2-binary = "^2.9.9"
-django-jazzmin = "^3.0.0"
+django-unfold = "^0.28.1"
 
 [build-system]
 requires = ["poetry-core"]

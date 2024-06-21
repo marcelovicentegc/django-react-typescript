@@ -22,11 +22,7 @@ admin.site.site_header = "Django-React-Typescript Admin"
 admin.site.site_title = "Django-React-Typescript Admin"
 admin.site.index_title = "Modules"
 
-def trigger_error(request):
-    division_by_zero = 1 / 0
-
 urlpatterns = [
-    re_path(r'^sentry-debug/', trigger_error),
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^api/', include('api.urls')),
     re_path(r'^static/(?P<path>.*)$', serve, { 'document_root' : STATIC_ROOT, }), 

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from django.utils.html import format_html
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 from backend.models.publications import Publication
@@ -6,7 +7,7 @@ from backend.actions import ExportCsvMixin
 from backend.utils import Strings
 
 @admin.register(Publication)
-class PublicationAdmin(admin.ModelAdmin, DynamicArrayMixin):
+class PublicationAdmin(ModelAdmin, DynamicArrayMixin):
     def image_preview(self, obj):
         return format_html('<img src="{}" style="height: 150px" />'.format(obj.image.url))
     
