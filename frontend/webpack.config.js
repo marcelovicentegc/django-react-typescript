@@ -3,8 +3,6 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ManifestWebpackPlugin = require("webpack-manifest-plugin");
-const LoadablePlugin = require("@loadable/webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const { GenerateSW } = require("workbox-webpack-plugin");
 
@@ -23,7 +21,7 @@ if (!PRODUCTION_MODE) {
 
 module.exports = {
   context: __dirname,
-  mode: process.env.NODE_ENV,
+  mode: process.env.NODE_ENV || "development",
   entry: "./index.tsx",
   output: {
     filename: "index.js",
@@ -31,39 +29,24 @@ module.exports = {
     publicPath: PRODUCTION_MODE ? PUBLIC_PATH : "/",
   },
   devtool: "source-map",
-  node: { fs: "empty" },
   resolve: {
     extensions: [".ts", ".tsx", ".mjs", ".js", ".json"],
-    alias: {
-      "react-dom": "@hot-loader/react-dom",
-    },
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "templates", "frontend", "index.html"),
+      template: path.resolve(
+        __dirname,
+        "templates",
+        "frontend",
+        "dev",
+        "index.html"
+      ),
       filename: "index.html",
     }),
     new CopyWebpackPlugin([{ from: "pwa" }]),
-    new ManifestWebpackPlugin({
-      fileName: "asset-manifest.json", // Not to confuse with manifest.json
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new LoadablePlugin(),
     new Dotenv(),
-    new GenerateSW({
-      // these options encourage the ServiceWorkers to get in there fast
-      // and not allow any straggling "old" SWs to hang around
-      clientsClaim: true,
-      skipWaiting: true,
-      runtimeCaching: [
-        {
-          urlPattern: new RegExp(WEBSITE_URL),
-          handler: "StaleWhileRevalidate",
-        },
-      ],
-    }),
   ],
   module: {
     rules: [
@@ -96,19 +79,13 @@ module.exports = {
     ],
   },
   devServer: {
-    publicPath: "/",
-    contentBase: `.${PUBLIC_PATH}`,
-    watchContentBase: true,
+    // publicPath: "/",
+    watchFiles: `.${PUBLIC_PATH}`,
     compress: true,
     port: PORT,
     hot: true,
-    inline: true,
     open: true,
-    openPage: "",
     historyApiFallback: true,
     allowedHosts: ["127.0.0.0", "localhost"],
-    stats: {
-      colors: true,
-    },
   },
 };

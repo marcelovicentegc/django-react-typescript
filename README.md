@@ -3,16 +3,24 @@
 
 <p align="center">
   <img alt="django-react-typescript logo" src="assets/Logo.png" />
-  <p align="center">Fully-featured, up-to-date React-Django boilerplate with great.</p>
+  <p align="center">Fully-featured, Django v5 + React v18 boilerplate with great DX.</p>
 </p>
 
 ---
 
-This is a fully-featured Django-React boilerplate built for great development experience and easy deployment.
+This is a fully-featured Django + React boilerplate built for great development experience and easy deployment guidelines.
 
-## Development 
+## Getting started
 
-### Database
+After cloning this project, install all dependencies by running:
+
+```sh
+pnpm run bootstrap
+```
+
+This command will install all dependencies for the frontend (React) and backend (Django) apps.
+
+### Setting up a database
 
 To start developing on this project, you will need a Postgres database instance running. It doesn 't matter if it's a local instance or a remote one. Just make sure to set up a Postgres database and configure the `.env` file with the correct credentials.
 
@@ -20,6 +28,36 @@ For convenience, if you want to use Docker + Docker Compose to spin up a Postgre
 
 ```sh
 pnpm run dev:db:up
+```
+
+### Running the project
+
+Once you've set up the database, you can start the project by running one of:
+
+```sh
+pnpm dev # Starts the project while assuming you've setup a database not using the Docker Compose setup. Spins up only the backend and frontend apps
+pnpm dev:full # Starts the project while assuming you've setup a database using the Docker Compose setup. Spins up a Postgres instance and pgAdmin alongside the backend and frontend apps
+```
+
+By default, the frontend app will run on `localhost:4000` and the backend app will run on `localhost:8000`. If you're running the containerized Postgres, it will run on `localhost:5432` and pgAdmin will run on `localhost:5050`.
+
+## Application architecture
+
+This application's architect is quite simple and leverages the best of both Django and React. On a nutshell, React and Django integrate through Django's Views and Django Rest Framework's API endpoints.
+
+```mermaid 
+flowchart TD
+    ns("Frontend") --> ny("React") & n9("Env. variables")
+    nl("Backend") --> nt("Django") & ni("Django Rest Framework")
+    nt --> n5("Views") & nb("Templates") & na("Models")
+    n5 --> nb
+    ny --> n0("API Client") & n4("Root Container")
+    na --> nn("API Key") & nd("Publications")
+    n4 -- Mounts on same file from\nDjango templates --> nb
+    n9 -.-> nn & n0
+    ni -- Provides a REST\nendpoint to manipulate\ndata from models --> ng("REST API")
+    ng --> nd
+    n0 -- Consumes API Key\nto authenticate\nwith backend --> ng
 ```
 
 ### Global
@@ -31,8 +69,6 @@ pnpm run dev:db:up
 - [React](https://reactjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
 - [React Router](https://reactrouter.com/)
-- [Styled Components](https://styled-components.com/)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 - [Webpack](https://webpack.js.org/)
 
 | Other features              | Status      |

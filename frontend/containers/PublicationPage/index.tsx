@@ -1,17 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import dayjs from "dayjs";
-import { RouteComponentProps } from "react-router-dom";
-import { useApi, useRouter, useViewport } from "../../hooks";
-import { Loading } from "../../components/Loading";
+import { useApi } from "../../hooks";
 import { IPublication } from "../../utils/api";
-import { Image, Column, Row, Box } from "../../base";
-import { Card } from "../../components/Card";
-import { Text } from "../../typography";
-import { theme } from "../../utils/theme";
-import { ScrollToTop } from "../../components/ScrollToTop";
-import { BackButton } from "../../components/BackButton";
 
-interface IProps extends Omit<RouteComponentProps, "match"> {
+interface IProps {
   match?: {
     params: {
       publication: string;
@@ -29,8 +21,6 @@ const PublicationPage: React.FC<IProps> = ({
   const [distanceToTop, setDistanceToTop] = React.useState(0);
   const columnRef = React.useRef<HTMLDivElement>();
   const { getPublication } = useApi();
-  const { history } = useRouter();
-  const { width } = useViewport();
   React.useEffect(() => {
     getData();
   }, []);
@@ -40,9 +30,6 @@ const PublicationPage: React.FC<IProps> = ({
         532
     );
   }, [data]);
-  const BREAKPOINT = 950;
-  const SECONDARY_BREAKPOINT = 750;
-  const TERTIARY_BREAKPOINT = 550;
 
   const getData = async () => {
     if (match) {
@@ -55,12 +42,10 @@ const PublicationPage: React.FC<IProps> = ({
   };
 
   return (
-    <>
-      <ScrollToTop />
-      {isLoading && <Loading />}
+    <Fragment>
       {data && (
         <>
-          <Image
+          <img
             src={data.image}
             alt={data.image_description}
             style={{
@@ -69,7 +54,7 @@ const PublicationPage: React.FC<IProps> = ({
               maxHeight: 689,
             }}
           />
-          <Column
+          <div
             ref={columnRef}
             style={{
               alignItems: "center",
@@ -91,84 +76,32 @@ const PublicationPage: React.FC<IProps> = ({
             >
               <div
                 style={{
-                  maxWidth:
-                    width > BREAKPOINT
-                      ? 909
-                      : width < TERTIARY_BREAKPOINT
-                      ? 309
-                      : width < SECONDARY_BREAKPOINT
-                      ? 509
-                      : 709,
                   width: "100%",
                   margin: "auto",
                 }}
-              >
-                <BackButton onClick={() => history.goBack()} />
-              </div>
+              ></div>
             </div>
-            <Card
+
+            {dayjs(data.created_at).locale("pt-br").format("LLLL")}
+
+            <div
               style={{
-                alignItems: "center",
-                paddingTop: 69,
-                paddingBottom: 81,
-                width:
-                  width > BREAKPOINT
-                    ? 845
-                    : width < TERTIARY_BREAKPOINT
-                    ? 245
-                    : width < SECONDARY_BREAKPOINT
-                    ? 445
-                    : 645,
+                maxWidth: 509,
+                paddingBottom: 25,
               }}
             >
-              <Column
-                style={{
-                  maxWidth: 719,
-                  width: "100%",
-                }}
-              >
-                <Row
-                  style={{
-                    width: "100%",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    paddingBottom: 25,
-                  }}
-                >
-                  <Text
-                    fontSize={20}
-                    lineHeight={26}
-                    fontWeight={500}
-                    color={theme.color.grey11}
-                  >
-                    {dayjs(data.created_at).locale("pt-br").format("LLLL")}
-                  </Text>
-                </Row>
-                <Text
-                  fontSize={32}
-                  lineHeight={42}
-                  fontWeight={500}
-                  style={{
-                    maxWidth: 509,
-                    paddingBottom: 25,
-                  }}
-                >
-                  {data.title}
-                </Text>
-                <Text
-                  fontSize={16}
-                  lineHeight={23}
-                  style={{
-                    whiteSpace: "pre-line",
-                  }}
-                  dangerouslySetInnerHTML={{ __html: data.body }}
-                />
-              </Column>
-            </Card>
-          </Column>
+              {data.title}
+            </div>
+            <div
+              style={{
+                whiteSpace: "pre-line",
+              }}
+              dangerouslySetInnerHTML={{ __html: data.body }}
+            />
+          </div>
         </>
       )}
-    </>
+    </Fragment>
   );
 };
 
