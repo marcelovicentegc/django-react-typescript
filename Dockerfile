@@ -1,19 +1,18 @@
 # Build frontend
-FROM node:12
+FROM node:20
 WORKDIR /usr/src/app
-ARG GTAG_ID
-ENV GTAG_ID $GTAG_ID
 ARG AUTH_TOKEN
 ENV AUTH_TOKEN $AUTH_TOKEN
 ENV NODE_ENV production
 ADD ./frontend/ /usr/src/app/frontend/
+RUN npm install -g pnpm
 RUN cd frontend \
-    && npm ci \
-    && echo $'NODE_ENV=production\nAUTH_TOKEN='$AUTH_TOKEN'\nGTAG_ID='$GTAG_ID >> .env \
-    && npm run build
+    && pnpm install \
+    && echo $'NODE_ENV=production\nAUTH_TOKEN='$AUTH_TOKEN >> .env \
+    && pnpm run build
 
-# Build Django
-FROM python:3.8-slim-buster
+# Build backend
+FROM python:3.12-rc-slim-buster
 WORKDIR /usr/src/app
 ARG ALLOWED_HOSTS
 ENV ALLOWED_HOSTS $ALLOWED_HOSTS
@@ -24,7 +23,7 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y build-essential postgresql-common libpq-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip
-COPY ./requirements.txt /usr/src/app/requirements.txt
-RUN pip install -r requirements.txt
-COPY --from=0 /usr/src/app /usr/src/app
-COPY . /usr/src/app/
+RUN pip install poetry
+COPY ./pyproject.toml /usr/src/app/pyproject.toml
+COPY ./poetry.lock /usr/src/app/poetry.lock
+RUN poetry install --no-dev
