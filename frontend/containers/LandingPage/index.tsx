@@ -43,8 +43,8 @@ const LandingPage: React.FC = () => {
               onClick={() =>
                 window.open(
                   PRODUCTION
-                    ? "/admin/authtoken/tokenproxy/add/"
-                    : "http://localhost:8000/admin/authtoken/tokenproxy/add/",
+                    ? "/admin/authtoken/token/add/"
+                    : "http://localhost:8000/admin/authtoken/token/add/",
                   "_blank"
                 )
               }
