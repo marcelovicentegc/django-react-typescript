@@ -4,9 +4,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
-const { GenerateSW } = require("workbox-webpack-plugin");
 
-const WEBSITE_URL = "https://www.example.com";
 const PUBLIC_PATH = "/static/frontend/";
 
 const PORT = 4000;
@@ -22,7 +20,7 @@ if (!PRODUCTION_MODE) {
 module.exports = {
   context: __dirname,
   mode: process.env.NODE_ENV || "development",
-  entry: "./index.tsx",
+  entry: ["./index.tsx"],
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, PUBLIC_PATH.replace("/", "")),
@@ -30,7 +28,10 @@ module.exports = {
   },
   devtool: "source-map",
   resolve: {
-    extensions: [".ts", ".tsx", ".mjs", ".js", ".json"],
+    extensions: [".ts", ".tsx", ".mjs", ".js", ".json", ".css"],
+    alias: {
+      "@": path.resolve("lib"),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -38,12 +39,12 @@ module.exports = {
         __dirname,
         "templates",
         "frontend",
-        "dev",
+        PRODUCTION_MODE ? "" : "dev",
         "index.html"
       ),
       filename: "index.html",
     }),
-    new CopyWebpackPlugin([{ from: "pwa" }]),
+    new CopyWebpackPlugin([{ from: "public" }]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new Dotenv(),
@@ -79,7 +80,6 @@ module.exports = {
     ],
   },
   devServer: {
-    // publicPath: "/",
     watchFiles: `.${PUBLIC_PATH}`,
     compress: true,
     port: PORT,
