@@ -1,5 +1,4 @@
 [![License: MIT](https://img.shields.io/github/license/marcelovicentegc/django-react-typescript)](LICENSE)
-![Build and Test app](https://github.com/marcelovicentegc/django-react-typescript/workflows/Build%20and%20Test%20app/badge.svg)
 
 <p align="center">
   <img alt="django-react-typescript logo" src="assets/Logo.png" />
@@ -8,9 +7,9 @@
 
 ---
 
-This is an opinionated fully-featured Django + React boilerplate built for great development experience and easy deployment guidelines.
+This is an opinionated Django + React boilerplate built with great development experience and easy deployment in mind.
 
-It is ideal if you want to bootstrap a blog or a portfolio website quickly, or even a more complex application that requires a backend and a frontend, while leveraging the best from React and Django.
+This template is ideal if you want to bootstrap a blog or a portfolio website quickly, or even a more complex application that requires a CMS, all while leveraging the best from React and Django.
 
 - [Getting started](#getting-started)
   - [Setting up a database](#setting-up-a-database)
@@ -50,6 +49,8 @@ pnpm run dev:db:up
 
 This project uses Cloudinary as a CDN, so you will need to have an account on Cloudinary and set up the `.env` file with the correct credentials. Use the [`.env.example`](./.env.example) file as a reference.
 
+Feel free to open an issue if you want to use another CDN, and I'll be happy to help you set it up.
+
 ### Running the project
 
 Once you've set up the database, you can start the project by running one of:
@@ -61,13 +62,13 @@ pnpm dev:full # Starts the project while assuming you've setup a database using 
 
 By default, the frontend app will run on `localhost:4000` and the backend app will run on `localhost:8000`. If you're running the containerized Postgres, it will run on `localhost:5432` and pgAdmin will run on `localhost:5050`.
 
-It's important to note that for the best development experience, you should run the backend and frontend apps separately. This way, you can take advantage of the hot-reload feature from Webpack and Django's development server.
+It's important to note that **for the best development experience, you should run the backend and frontend apps separately**. This way, you can take advantage of the hot-reload feature from Webpack and Django's development server.
 
-Although you can replicate the aforementioned behavior on a production environment (run the backend and frontend apps on differen servers), **this project is built to run both apps on the same server, with the frontend app being served by Django's templates and view engine**. You can learn more about how this works below 👇
+Although you can replicate the aforementioned behavior on a production environment (run the backend and frontend apps on differen servers), **this project is built to run both apps on the same server in production, with the frontend app being served by Django's template engine and view functions**. You can learn more about how everything is tied up together below 👇
 
 ## Application architecture
 
-This application's architect is quite simple and leverages the best of both Django and React. On a nutshell, React and Django integrate through Django's Views and Django Rest Framework's API endpoints.
+This application's architect is quite simple and leverages the best of both Django and React. On a nutshell, React and Django integrate through Django's view functions and Django Rest Framework's API endpoints. There is no secret sauce here, just a simple and straightforward integration.
 
 ```mermaid 
 flowchart TD
@@ -88,14 +89,14 @@ flowchart TD
 
 Below you will find the stack used for each part of the application and the features that are already implemented.
 
-| Stack      | Features                                                          |
-| ---------- | ----------------------------------------------------------------- |
-| Frontend   | React 18, React Router 6, Typescript 5, Webpack 5, Tailwind CSS 3 |
-| Backend    | Django 5, Django Rest Framework                                   |
-| Database   | Postgres                                                          |
-| CDN        | Cloudinary                                                        |
-| CI/CD      | GitHub Actions                                                    |
-| Monitoring | Sentry                                                            |
+| Stack      | Libraries and services                                            | Features                         |
+| ---------- | ----------------------------------------------------------------- | -------------------------------- |
+| Frontend   | React 18, React Router 6, Typescript 5, Webpack 5, Tailwind CSS 3 | Publication listing and search   |
+| Backend    | Django 5, Django Rest Framework                                   | Publication CRUD, API Key CRUD   |
+| Database   | Postgres                                                          | -                                |
+| CDN        | Cloudinary                                                        | -                                |
+| CI/CD      | GitHub Actions                                                    | Multiple deploy workflow options |
+| Monitoring | Sentry                                                            | -                                |
 
 ## Infrastructure & deployment
 
@@ -150,4 +151,3 @@ You should configure these variables on a `.env` file on the root folder for the
 | -------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | NODE_ENV             | `development` | Let's Webpack know when to build files to correct public path, optimize code and when to prepend localhost for API endpoints or not. Values must be either `development` or `production`. This is hardcoded on the [Dockerfile](./Dockerfile) |
 | AUTH_TOKEN           | -             | An auth key generated on Django's admin that must be associated to a user with specific permissions (i.g.: read specific infos from Django's ORM)                                                                                             |
-|                      |
