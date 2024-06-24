@@ -13,6 +13,7 @@
   },
   "scripts": {
     "unused": "pnpm unimported",
+    "postinstall": "postcss ./tailwind.css -o ./lib/index.css",
     "build": "cross-env webpack --config webpack.config.js",
     "dev:react": "cross-env webpack-dev-server --progress --host 0.0.0.0",
     "dev:css": "postcss ./tailwind.css -o ./lib/index.css --watch",

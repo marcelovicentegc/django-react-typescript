@@ -13,6 +13,9 @@ core/media
 # Webpack
 frontend/static/frontend
 
+# Tailwind
+frontend/lib/index.css
+
 # npm
 node_modules
 
