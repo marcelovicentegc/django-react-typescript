@@ -5,10 +5,11 @@
   "scripts": {
     "bootstrap": "concurrently -n global,backend,frontend \"pnpm i\" \"poetry install\" \"cd frontend && pnpm i\"",
     "setup:env": "sh ./scripts/setup_env.sh",
+    "build:frontend": "cd frontend && pnpm i && pnpm run build",
     "dev:db:up": "docker compose -f ./docker-compose-dev-db.yml up",
     "dev:db:migrate": "poetry run python3 manage.py migrate",
     "dev:db:makemigrations": "poetry run python3 manage.py makemigrations",
-    "dev:backend": "poetry run python3 manage.py runserver",
+    "dev:backend": "pnpm run build:frontend && poetry run python3 manage.py runserver",
     "dev:backend:db": "concurrently -n db,backend \"pnpm run dev:db:up\" \"wait-on tcp:5432 && pnpm run dev:backend\"",
     "dev:frontend": "cd frontend && pnpm i && pnpm run dev",
     "dev": "concurrently -n backend,frontend \"pnpm run dev:backend\" \"pnpm run dev:frontend\"",

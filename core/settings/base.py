@@ -77,16 +77,6 @@ INSTALLED_APPS = [
     'cloudinary'
 ]
 
-# https://github.com/cdrx/django-admin-menu
-
-ADMIN_STYLE = {
-    'primary-color': '#164B36',
-    'secondary-color': '#092117',
-    'tertiary-color': '#51B48E'
-}
-
-ADMIN_LOGO = 'backend/logo.png'
-
 SITE_ID = 1
 
 MIDDLEWARE = [

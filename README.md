@@ -16,7 +16,8 @@ It is ideal if you want to bootstrap a blog or a portfolio website quickly, or e
   - [Setting up a database](#setting-up-a-database)
   - [Setting up a CDN](#setting-up-a-cdn)
   - [Running the project](#running-the-project)
-- [Application architecture \& features](#application-architecture--features)
+- [Application architecture](#application-architecture)
+- [Features](#features)
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Integrations](#integrations)
@@ -64,7 +65,11 @@ pnpm dev:full # Starts the project while assuming you've setup a database using 
 
 By default, the frontend app will run on `localhost:4000` and the backend app will run on `localhost:8000`. If you're running the containerized Postgres, it will run on `localhost:5432` and pgAdmin will run on `localhost:5050`.
 
-## Application architecture & features
+It's important to note that for the best development experience, you should run the backend and frontend apps separately. This way, you can take advantage of the hot-reload feature from Webpack and Django's development server.
+
+Although you can replicate the aforementioned behavior on a production environment (run the backend and frontend apps on differen servers), **this project is built to run both apps on the same server, with the frontend app being served by Django's templates and view engine**. You can learn more about how this works below 👇
+
+## Application architecture
 
 This application's architect is quite simple and leverages the best of both Django and React. On a nutshell, React and Django integrate through Django's Views and Django Rest Framework's API endpoints.
 
@@ -82,6 +87,8 @@ flowchart TD
     ng --> nd
     n0 -- Consumes API Key\nto authenticate\nwith backend --> ng
 ```
+
+## Features
 
 Below you will find the stack used for each part of the application and the features that are already implemented.
 

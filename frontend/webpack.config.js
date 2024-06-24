@@ -74,7 +74,7 @@ module.exports = {
         loader: "file-loader",
         options: {
           name: "icons|fonts/[name].[ext]",
-          outputPath: "assets",
+          outputPath: PUBLIC_PATH,
         },
       },
     ],
