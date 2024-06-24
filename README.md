@@ -121,11 +121,11 @@ This codebase has two deploy methods available via GitHub actions:
 
 ### Virtualized Deploy Workflow
 
-The `virtualized-deploy-qa` and `virtualized-deploy-prod` branches will trigger this wokflow. You can use it to deploy the app to any Virtual Machine accessible via SSH (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc), and you would likely want to change the name of these branches to something more meaningful to your project.
+The `vm-deploy-qa` and `vm-deploy-prod` branches will trigger this wokflow. You can use it to deploy the app to any Virtual Machine accessible via SSH (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc), and you would likely want to change the name of these branches to something more meaningful to your project.
 
 ### Bare-metal Deploy Workflow
 
-The `bare-metail-deploy-qa` and `bare-metal-deploy-prod` branches will trigger this workflow. You can use it to deploy the app straight on the host machine, without any virtualization. This is not recommended, but ou never know when you will need to deploy an app on a bare-metal machine 🤷‍♀️
+The `bare-metal-deploy` branches will trigger this workflow. You can use it to deploy the app straight on the host machine, without any virtualization. This is not recommended, but ou never know when you will need to deploy an app on a bare-metal machine 🤷‍♀️
 
 ## Configuration
 
