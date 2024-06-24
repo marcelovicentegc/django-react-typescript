@@ -1,4 +1,4 @@
-name: Build Image, push to Registry and Deploy to Digital Ocean's PRD
+name: Build Image, push to Registry and Deploy to Digital Ocean's production environment
 
 on:
   push:
@@ -86,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Build image
         run: docker build . --build-arg AUTH_TOKEN=${{ secrets.AUTH_KEY }} --build-arg ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} --file Dockerfile --tag ${{ secrets.IMAGE_NAME }}
       - name: Log into registry
@@ -117,9 +117,9 @@ jobs:
     needs: push-image-to-registry
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@prd
+      - uses: actions/checkout@vm-deploy-prod
       - name: copy docker-compose.yml
-        uses: appleboy/scp-action@prd
+        uses: appleboy/scp-action@vm-deploy-prod
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -129,7 +129,7 @@ jobs:
           target: "image"
 
       - name: execute docker-compose
-        uses: appleboy/ssh-action@prd
+        uses: appleboy/ssh-action@vm-deploy-prod
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           CDN_NAME: ${{ secrets.CDN_NAME }}

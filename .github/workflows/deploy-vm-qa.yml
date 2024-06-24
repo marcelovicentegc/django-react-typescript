@@ -1,7 +1,7 @@
-name: Build Image, push to Registry and Deploy to HML
+name: Build Image, push to Registry and Deploy to Q.A.
 on:
   push:
-    # Publish `hml` as Docker `latest` image.
+    # Publish `qa` as Docker `latest` image.
     branches:
       - vm-deploy-qa
 
@@ -77,7 +77,7 @@ jobs:
         run: sudo apt-get install libmemcached-dev
       - name: Run tests
         run: |
-          docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg ALLOWED_HOSTS=${{ secrets.HML_ALLOWED_HOSTS }} --file Dockerfile.hml
+          docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg ALLOWED_HOSTS=${{ secrets.HML_ALLOWED_HOSTS }} --file Dockerfile
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
@@ -89,12 +89,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build image
-        run: docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.HML_GTAG_ID }} --build-arg ALLOWED_HOSTS=${{ secrets.HML_ALLOWED_HOSTS }} --file Dockerfile.hml --tag ${{ secrets.IMAGE_NAME }}-hml
+        run: docker build . --build-arg AUTH_TOKEN=${{ secrets.HML_AUTH_KEY }} --build-arg GTAG_ID=${{ secrets.HML_GTAG_ID }} --build-arg ALLOWED_HOSTS=${{ secrets.HML_ALLOWED_HOSTS }} --file Dockerfile --tag ${{ secrets.IMAGE_NAME }}-qa
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: Push image
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/${{ secrets.IMAGE_NAME }}-hml
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/${{ secrets.IMAGE_NAME }}-qa
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -106,31 +106,31 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "hml" ] && VERSION=latest
+          [ "$VERSION" == "qa" ] && VERSION=latest
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag ${{ secrets.IMAGE_NAME }}-hml $IMAGE_ID:$VERSION
+          docker tag ${{ secrets.IMAGE_NAME }}-qa $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
   deploy:
     needs: push-image-to-registry
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@hml
-      - name: copy docker-compose.hml.yml
-        uses: appleboy/scp-action@hml
+      - uses: actions/checkout@vm-deploy-qa
+      - name: copy docker-compose.qa.yml
+        uses: appleboy/scp-action@vm-deploy-qa
         with:
           host: ${{ secrets.HML_HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "docker-compose.hml.yml"
+          source: "docker-compose.qa.yml"
           target: "image"
 
       - name: execute docker-compose
-        uses: appleboy/ssh-action@hml
+        uses: appleboy/ssh-action@vm-deploy-qa
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           CDN_NAME: ${{ secrets.CDN_NAME }}
@@ -149,7 +149,7 @@ jobs:
           script: |
             docker login -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.DEPLOY_TOKEN }} docker.pkg.github.com
             cd image
-            mv docker-compose.hml.yml docker-compose.yml
+            mv docker-compose.qa.yml docker-compose.yml
             docker-compose pull
             MODE=production SMTP_HOST_USER=${{ secrets.SMTP_HOST_USER }} SMTP_HOST_PASSWORD=${{ secrets.SMTP_HOST_PASSWORD }} SECRET_KEY=${{ secrets.SECRET_KEY }} CDN_NAME=${{ secrets.CDN_NAME }} CDN_API_KEY=${{ secrets.CDN_API_KEY }} CDN_API_SECRET=${{ secrets.CDN_API_SECRET }} DB_HOST=${{ secrets.DB_HOST }} DB_NAME=${{ secrets.DB_NAME }} DB_USER=${{ secrets.DB_USER }} DB_PASSWORD=${{ secrets.DB_PASSWORD }} DB_PORT=${{ secrets.DB_PORT }} docker-compose up -d
             docker image prune -f

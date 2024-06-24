@@ -3,7 +3,7 @@ version: "3"
 services:
   web:
     restart: always
-    image: docker.pkg.github.com/marcelovicentegc/django-react-typescript/django-react-typescript-hml:latest
+    image: docker.pkg.github.com/marcelovicentegc/django-react-typescript/django-react-typescript-qa:latest
     expose:
       - "8000"
     ports:
