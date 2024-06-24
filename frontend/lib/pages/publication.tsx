@@ -1,107 +1,68 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { type IPublication, useApi } from "../api";
+import { useParams } from "react-router-dom";
+import { FullScreenLoading } from "../components/full-screen-loading";
 
-interface IProps {
-  match?: {
-    params: {
-      publication: string;
-    };
-  };
+interface Props {
   data?: IPublication;
 }
 
-const PublicationPage: React.FC<IProps> = ({
-  match,
-  data: publicationData,
-}) => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [data, setData] = React.useState<IPublication>();
-  const [distanceToTop, setDistanceToTop] = React.useState(0);
-  const columnRef = React.useRef<HTMLDivElement>();
+function PublicationPage(props: Props) {
+  const { data: publicationData } = props;
+  const { publication } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<IPublication>();
   const { getPublication } = useApi();
-  React.useEffect(() => {
+
+  useEffect(() => {
     getData();
   }, []);
-  React.useEffect(() => {
-    setDistanceToTop(
-      -(window.pageYOffset + columnRef.current?.getBoundingClientRect().top) +
-        532
-    );
-  }, [data]);
 
   const getData = async () => {
-    if (match) {
+    if (publication) {
       setIsLoading(true);
-      setData(await getPublication(match.params.publication));
+      setData(await getPublication(publication));
       setIsLoading(false);
     } else {
       setData(publicationData);
     }
   };
 
+  if (isLoading) {
+    return <FullScreenLoading />;
+  }
+
   return (
-    <Fragment>
-      {data && (
-        <>
-          <img
-            src={data.image}
-            alt={data.image_description}
-            style={{
-              objectFit: "cover",
-              minHeight: "100%",
-              maxHeight: 689,
-            }}
-          />
-          <div
-            ref={columnRef}
-            style={{
-              alignItems: "center",
-              position: "relative",
-              right: 0,
-              left: 0,
-              top: distanceToTop,
-              marginBottom: distanceToTop + 80,
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: -50,
-                right: 0,
-                left: 0,
-                display: "flex",
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              ></div>
-            </div>
-
-            {dayjs(data.created_at).locale("pt-br").format("LLLL")}
-
-            <div
-              style={{
-                maxWidth: 509,
-                paddingBottom: 25,
-              }}
-            >
-              {data.title}
-            </div>
-            <div
-              style={{
-                whiteSpace: "pre-line",
-              }}
-              dangerouslySetInnerHTML={{ __html: data.body }}
-            />
-          </div>
-        </>
-      )}
-    </Fragment>
+    <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 antialiased">
+      <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+        <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+          <header className="mb-4 lg:mb-6 not-format">
+            <address className="flex items-center mb-6 not-italic">
+              <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                <div>
+                  <p className="text-base text-gray-500 dark:text-gray-400">
+                    <time>
+                      {dayjs(data?.created_at).locale("pt-br").format("LLLL")}
+                    </time>
+                  </p>
+                </div>
+              </div>
+            </address>
+            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
+              {data?.title}
+            </h1>
+          </header>
+          <p className="lead">{data?.description}</p>
+          {data?.body}
+          <figure className="mt-4">
+            <img src={data?.image} alt={data?.image_description} />
+            <figcaption>{data?.image_description}</figcaption>
+          </figure>
+        </article>
+      </div>
+    </main>
   );
-};
+}
 
 export { PublicationPage as default };

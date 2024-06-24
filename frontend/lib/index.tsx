@@ -4,8 +4,8 @@ import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { ROUTES } from "./routes";
 import { FullScreenLoading } from "./components/full-screen-loading";
-import "./index.css";
 import { Topbar } from "./components/topbar";
+import "./index.css";
 
 const LandingPage = lazy(() => import("./pages/landing"));
 const BlogPage = lazy(() => import("./pages/blog"));
