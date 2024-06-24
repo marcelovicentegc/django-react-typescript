@@ -1,6 +1,7 @@
 export function getSecrets() {
-  const NODE_ENV = process.env.NODE_ENV;
-  const AUTH_TOKEN = process.env.AUTH_TOKEN;
+  const nodeEnv = process.env.NODE_ENV;
+  const authToken = process.env.AUTH_TOKEN;
+  const isProd = nodeEnv === "production";
 
-  return { NODE_ENV, AUTH_TOKEN };
+  return { nodeEnv, authToken, isProd };
 }

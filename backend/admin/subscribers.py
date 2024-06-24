@@ -1,11 +1,10 @@
 from django.contrib import admin
-from unfold.admin import ModelAdmin
 from backend.models.subscribers import Subscriber
 from backend.actions import ExportCsvMixin
 
 
 @admin.register(Subscriber)
-class SubscriberAdmin(ModelAdmin, ExportCsvMixin):
+class SubscriberAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_filter = ('contact_method', 'created_at')
     actions = ["export_as_csv"]
     search_fields = ['name']

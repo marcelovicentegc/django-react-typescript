@@ -8,16 +8,15 @@ import {
 import { getSecrets } from "../config";
 import type { IGetPaginatedPublicationsResponse, IPublication } from "./types";
 
-const { NODE_ENV, AUTH_TOKEN } = getSecrets();
+const { isProd, authToken } = getSecrets();
 
-const PRODUCTION_MODE = NODE_ENV === "production";
 const LOCAL_API_URL = "http://localhost:8000";
 
 export function useApi() {
   const getHeaders = new Headers({
     Accept: "*/*",
     "Accept-Encoding": "gzip, deflate, br",
-    Authorization: "Token " + AUTH_TOKEN,
+    Authorization: "Token " + authToken,
   });
 
   async function getPublications(
@@ -32,7 +31,7 @@ export function useApi() {
     const endpoint = (() => {
       const shouldFilter = args.tag && args.title;
 
-      if (PRODUCTION_MODE) {
+      if (isProd) {
         if (shouldFilter) {
           return getFilteredPublicationsEndoint(args);
         }
@@ -69,7 +68,7 @@ export function useApi() {
   }): Promise<IGetPaginatedPublicationsResponse> {
     const endpoint = (() => {
       if (!args) {
-        if (PRODUCTION_MODE) {
+        if (isProd) {
           return getPaginatedPublicationsEndpoint;
         }
 
@@ -81,7 +80,7 @@ export function useApi() {
       }
 
       if (args.page && !args.filter) {
-        if (PRODUCTION_MODE) {
+        if (isProd) {
           return getPaginatedPublicationsEndpoint + `?page=${args.page}`;
         }
 
@@ -91,7 +90,7 @@ export function useApi() {
           `?page=${args.page}`
         );
       } else if (args.filter) {
-        if (PRODUCTION_MODE) {
+        if (isProd) {
           return getPaginatedFilteredPublicationsEndoint({
             title: args.filter.title,
             tag: args.filter.tags,
@@ -122,7 +121,7 @@ export function useApi() {
 
   async function getPublication(slug: string): Promise<IPublication> {
     return fetch(
-      PRODUCTION_MODE
+      isProd
         ? getPublicationEndpoint(slug)
         : LOCAL_API_URL + getPublicationEndpoint(slug),
       {

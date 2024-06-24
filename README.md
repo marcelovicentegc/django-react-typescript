@@ -3,12 +3,31 @@
 
 <p align="center">
   <img alt="django-react-typescript logo" src="assets/Logo.png" />
-  <p align="center">Fully-featured, Django v5 + React v18 boilerplate with great DX.</p>
+  <p align="center">Fully-featured, Django 5 + React 18 boilerplate with great DX.</p>
 </p>
 
 ---
 
-This is a fully-featured Django + React boilerplate built for great development experience and easy deployment guidelines.
+This is an opinionated fully-featured Django + React boilerplate built for great development experience and easy deployment guidelines.
+
+It is ideal if you want to bootstrap a blog or a portfolio website quickly, or even a more complex application that requires a backend and a frontend, while leveraging the best from React and Django.
+
+- [Getting started](#getting-started)
+  - [Setting up a database](#setting-up-a-database)
+  - [Setting up a CDN](#setting-up-a-cdn)
+  - [Running the project](#running-the-project)
+- [Application architecture \& features](#application-architecture--features)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+  - [Integrations](#integrations)
+- [Infrastructure \& deployment](#infrastructure--deployment)
+  - [Virtualized Deploy Workflow](#virtualized-deploy-workflow)
+  - [Bare-metal Deploy Workflow](#bare-metal-deploy-workflow)
+- [Configuration](#configuration)
+  - [Global](#global)
+    - [Exclusively used in production](#exclusively-used-in-production)
+  - [Frontend](#frontend-1)
+    - [Exclusively used in production](#exclusively-used-in-production-1)
 
 ## Getting started
 
@@ -30,6 +49,10 @@ For convenience, if you want to use Docker + Docker Compose to spin up a Postgre
 pnpm run dev:db:up
 ```
 
+### Setting up a CDN
+
+This project uses Cloudinary as a CDN, so you will need to have an account on Cloudinary and set up the `.env` file with the correct credentials. Use the [`.env.example`](./.env.example) file as a reference.
+
 ### Running the project
 
 Once you've set up the database, you can start the project by running one of:
@@ -41,7 +64,7 @@ pnpm dev:full # Starts the project while assuming you've setup a database using 
 
 By default, the frontend app will run on `localhost:4000` and the backend app will run on `localhost:8000`. If you're running the containerized Postgres, it will run on `localhost:5432` and pgAdmin will run on `localhost:5050`.
 
-## Application architecture
+## Application architecture & features
 
 This application's architect is quite simple and leverages the best of both Django and React. On a nutshell, React and Django integrate through Django's Views and Django Rest Framework's API endpoints.
 
@@ -60,67 +83,42 @@ flowchart TD
     n0 -- Consumes API Key\nto authenticate\nwith backend --> ng
 ```
 
-### Global
-
-- Commit lint rules
+Below you will find the stack used for each part of the application and the features that are already implemented.
 
 ### Frontend
 
-- [React](https://reactjs.org/)
-- [Typescript](https://www.typescriptlang.org/)
-- [React Router](https://reactrouter.com/)
-- [Webpack](https://webpack.js.org/)
-
-| Other features              | Status      |
-| --------------------------- | ----------- |
-| SSR ready                   | In progress |
-| Service workers             | ✔️           |
-| Gzip static file gen        | ✔️           |
-| Cache control               | ✔️           |
-| Code split and lazy loading | ✔️           |
-| Google Analytics ready      | ✔️           |
-| PWA ready                   | ✔️           |
+Stack:
+- React 18
+- React Router 6
+- Typescript 5
+- Webpack 5
+- Tailwind CSS 3
 
 ### Backend
 
-- [Django](https://www.djangoproject.com/)
-- [Django REST Framework](https://www.django-rest-framework.org/)
-- Django CORS Headers
-
-| Other features       | Status |
-| -------------------- | ------ |
-| Token authentication | ✔️      |
-| SMTP ready           | ✔️      |
-
-### Infrastructure
-
-- Docker image featuring
-  - [Memcached](https://memcached.org/)
-  - [PostgreSQL](https://www.postgresql.org/)
-- [Supervisor](http://supervisord.org/) (optional, should be used if you're deploying on a non-virtualized system)
-
-| Other features                                                                                                                                                                                            | Status |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| NGINX config file                                                                                                                                                                                         | ✔️      |
-| CI/CD to any V.M. (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc) accessible via SSH (the `hml` and `prd` branches will trigger the [deploy workflow](#Virtualized-Deploy-Workflow)) | ✔️      |
-| CI/CD to deploy straight on host (without virtualization; not recommended) (the branch `prd-host` will trigger this. See more on the [host deploy workflow](#Host-Deploy-Workflow) method)                | ✔️      |
+Stack:
+- Django 5
+- Django Rest Framework
+- Postgres
 
 ### Integrations
 
 - [Sentry](https://sentry.io/welcome/)
 - [Cloudinary](https://cloudinary.com/)
-- [Twilio](https://www.twilio.com/)
-- [Google Analytics](https://analytics.google.com/analytics/web/)
 
-## Development directions
+## Infrastructure & deployment
 
-1. Clone this repo: `git clone https://github.com/marcelovicentegc/django-react-typescript.git`
-2. Create a virtual environment: `python -m venv venv`
-3. Activate it ☝️: `source venv/bin/activate` or `venv\Scripts\activate` if you're on a Windows
-4. Install dependencies: `npm i && pip install -r requirements.txt && cd frontend && npm i`
-5. Setup the project `.env` file by taking as example the `.env.example` on the root folder (refer to [configuration](#Configuration) for more details)
-6. Setup the frontend app's `frontend/.env` file by taking as example the `frontend/.env.example` file (refer to [configuration](#Configuration) for more details)
-7. Start the application: `npm start` (make sure Postgres is up and running)
+Although this project provides some guidelines on how to deploy the app, it is not mandatory to follow them. You can deploy the app on any platform you want, as long as it supports Docker and Docker Compose, or even deploy the app on a bare-metal machine.
+
+This codebase has two deploy methods available via GitHub actions:
+
+### Virtualized Deploy Workflow
+
+The `virtualized-deploy-qa` and `virtualized-deploy-prod` branches will trigger this wokflow. You can use it to deploy the app to any Virtual Machine accessible via SSH (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc), and you would likely want to change the name of these branches to something more meaningful to your project.
+
+### Bare-metal Deploy Workflow
+
+The `bare-metail-deploy-qa` and `bare-metal-deploy-prod` branches will trigger this workflow. You can use it to deploy the app straight on the host machine, without any virtualization. This is not recommended, but ou never know when you will need to deploy an app on a bare-metal machine 🤷‍♀️
 
 ## Configuration
 
@@ -142,9 +140,6 @@ You should configure these variables on a `.env` file on the root folder for the
 | SMTP_HOST_USER       |                                                      | Your SMTP email (should be a GMail one)                                                                                                                                                     |
 | SMTP_HOST_PASSWORD   | -                                                    | Your SMTP email password                                                                                                                                                                    |
 | TEST                 | 0                                                    | Used to test the app on the pipeline                                                                                                                                                        |
-| TWILIO_ACCOUNT_SID   | -                                                    | Your Twilio account SID (**optional**)                                                                                                                                                      |
-| TWILIO_AUTH_TOKEN    | -                                                    | Your Twilio account Auth token(**optional**)                                                                                                                                                |
-| TWILIO_WPP_NUMBER    | -                                                    | Your Twilio account's Whatsapp number (**optional**)                                                                                                                                        |
 
 #### Exclusively used in production
 
@@ -167,7 +162,7 @@ You should configure these variables on a `.env` file on the root folder for the
 | -------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | NODE_ENV             | `development` | Let's Webpack know when to build files to correct public path, optimize code and when to prepend localhost for API endpoints or not. Values must be either `development` or `production`. This is hardcoded on the [Dockerfile](./Dockerfile) |
 | AUTH_TOKEN           | -             | An auth key generated on Django's admin that must be associated to a user with specific permissions (i.g.: read specific infos from Django's ORM)                                                                                             |
-| GTAG_ID              | -             | Google Analytics ID                                                                                                                                                                                                                           |
+|                      |
 
 #### Exclusively used in production
 
@@ -176,18 +171,3 @@ You should configure these variables on a `.env` file on the root folder for the
 | HML_AUTH_KEY         | Same as AUTH_KEY but for a HML environment |
 | HML_GTAG_ID          | Same as GTAG_ID but for a HML environment  |
 
-## Deployment worfklows
-
-### Virtualized Deploy Workflow
-
-Branches `hml` and `prd` will trigger this workflow.
-
-![Deploy workflow](./assets/DeployWorkflow.jpg)
-
-### Host Deploy Workflow
-
-For this kind of deploy to work, you will need a running Postgres database, Nginx, and Supervisor processes.
-
-## Basic architecture
-
-![Architecture](./assets/Architecture.png)
