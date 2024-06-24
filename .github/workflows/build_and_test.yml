@@ -57,7 +57,7 @@ jobs:
         env:
           TEST: 1
         run: |
-          poetry run manage.py test
+          poetry run python manage.py test
 
   test-image:
     runs-on: ubuntu-latest
