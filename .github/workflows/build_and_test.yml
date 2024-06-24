@@ -61,7 +61,7 @@ jobs:
 
   test-image:
     runs-on: ubuntu-latest
-    needs: build-django
+    needs: build-backend
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
     steps:
