@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { type IPublication, useApi } from "../api";
+import { type Publication, useApi } from "../api";
 import { useParams } from "react-router-dom";
 import { FullScreenLoading } from "../components/full-screen-loading";
 
 interface Props {
-  data?: IPublication;
+  data?: Publication;
 }
 
 function PublicationPage(props: Props) {
   const { data: publicationData } = props;
   const { publication } = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<IPublication>();
+  const [data, setData] = useState<Publication>();
   const { getPublication } = useApi();
 
   useEffect(() => {

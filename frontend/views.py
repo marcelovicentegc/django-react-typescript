@@ -5,6 +5,9 @@ from django.http import StreamingHttpResponse
 from wsgiref.util import is_hop_by_hop
 
 class ProxyHttpResponse(StreamingHttpResponse):
+    """
+    Proxies a response from an upstream server to the client.
+    """
     def __init__(self, url, headers=None, **kwargs):
         upstream = requests.get(url, stream=True, headers=headers)
 
@@ -19,20 +22,28 @@ class ProxyHttpResponse(StreamingHttpResponse):
                 self[name] = value
 
 
-def index(request):
+def spa_and_admin_handler(request):
+    """
+    This view is used to serve the React application and the Django
+    admin panel. The React application is served when the request
+    path does not start with '/admin', and the Django admin panel
+    is served when the request path starts with '/admin'.
+    """
     pathname = request.META.get('PATH_INFO', None)
 
-    if (pathname == '/admin'):
-        return redirect('/admin/')
+    if (pathname.startswith('/admin')):
+        return redirect(pathname)
 
     return render(request, 'frontend/index.html')
 
 
-def blog_post(request, string):
-    return render(request, 'frontend/index.html')
-
-
-def js_files_handler(request):
+def frontend_files_handler(request, _):
+    """
+    This view is used to serve files requested dynamically by the
+    React application from the backend server, since the client-side
+    code is not aware of where the files are located in the backend 
+    and expects them to be located on the root.
+    """
     pathname = request.META.get('PATH_INFO', None)
     url = request.build_absolute_uri()
 

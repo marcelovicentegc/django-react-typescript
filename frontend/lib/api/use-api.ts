@@ -6,7 +6,7 @@ import {
   getPaginatedFilteredPublicationsEndoint,
 } from "./utils";
 import { getSecrets } from "../config";
-import type { IGetPaginatedPublicationsResponse, IPublication } from "./types";
+import type { GetPaginatedPublicationsResponse, Publication } from "./types";
 
 const { isProd, authToken } = getSecrets();
 
@@ -27,7 +27,7 @@ export function useApi() {
       title: "",
       tag: [],
     }
-  ): Promise<IPublication[]> {
+  ): Promise<Publication[]> {
     const endpoint = (() => {
       const shouldFilter = args.tag && args.title;
 
@@ -65,7 +65,7 @@ export function useApi() {
       title?: string;
       tags?: string[];
     };
-  }): Promise<IGetPaginatedPublicationsResponse> {
+  }): Promise<GetPaginatedPublicationsResponse> {
     const endpoint = (() => {
       if (!args) {
         if (isProd) {
@@ -119,7 +119,7 @@ export function useApi() {
       });
   }
 
-  async function getPublication(slug: string): Promise<IPublication> {
+  async function getPublication(slug: string): Promise<Publication> {
     return fetch(
       isProd
         ? getPublicationEndpoint(slug)

@@ -26,7 +26,7 @@ services:
     depends_on:
       - postgres
       - memcached
-    command: sh -c "python manage.py migrate && python manage.py collectstatic --no-input && python manage.py clearcache && gunicorn core.wsgi -b 0.0.0.0:8000"
+    command: sh -c "poetry run python manage.py migrate && python manage.py collectstatic --no-input && python manage.py clearcache && gunicorn core.wsgi -b 0.0.0.0:8000"
 
   postgres:
     restart: always

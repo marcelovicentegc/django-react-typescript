@@ -16,7 +16,7 @@ module.exports = {
   safelist: [
     {
       pattern:
-        /(min|bg|mx|max|px|h|items|justify|w|ml|space|text|rounded|font|py|p|sr|inset|ml|right|mt|origin|shadow|ring|mr|inline|leading|flex|tracking|self|whitespace)-/,
+        /(min|bg|mx|max|px|h|items|justify|w|ml|space|text|rounded|font|py|p|sr|inset|ml|right|mt|origin|shadow|ring|mr|inline|leading|flex|tracking|self|whitespace|grid)-/,
       variants: ["sm", "md", "lg"],
     },
     {

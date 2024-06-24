@@ -1,11 +1,11 @@
 import React from "react";
 import { Button, Card } from "flowbite-react";
-import { IPublication } from "../api";
+import { Publication } from "../api";
 import dayjs from "dayjs";
 import { ROUTES, useRouter } from "../routes";
 
 interface Props {
-  data: IPublication;
+  data: Publication;
 }
 
 export function BlogPostPreview(props: Props) {
@@ -43,7 +43,7 @@ export function BlogPostPreview(props: Props) {
   );
 }
 
-function getPreview(data: IPublication) {
+function getPreview(data: Publication) {
   const preview = data.description ? data.description : data.body;
 
   return preview.slice(0, 50);

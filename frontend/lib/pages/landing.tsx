@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { HR, Spinner } from "flowbite-react";
-import { type IPublication, useApi } from "../api";
+import { type Publication, useApi } from "../api";
 import { BlogPreviewSection } from "../components/blog-preview-section";
 import { GettingStartedSection } from "../components/getting-started-section";
 
 function LandingPage() {
-  const [blogData, setBlogData] = useState<IPublication[]>();
+  const [blogData, setBlogData] = useState<Publication[]>();
   const [isLoading, setIsLoading] = useState(false);
   const { getPublications } = useApi();
 

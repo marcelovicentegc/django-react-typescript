@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
-  type IGetPaginatedPublicationsResponse,
-  type IPublication,
+  type GetPaginatedPublicationsResponse,
+  type Publication,
   useApi,
 } from "../api";
 import { useDebounce } from "../hooks";
 import { BlogPostPreview } from "../components/blog-post-preview";
 import { FullScreenLoading } from "../components/full-screen-loading";
 import { Label, TextInput } from "flowbite-react";
+import { BlogHeader } from "../components/blog-header";
 
 interface IProps {
-  paginatedPublications?: IGetPaginatedPublicationsResponse;
-  blogPost?: IPublication;
+  paginatedPublications?: GetPaginatedPublicationsResponse;
+  blogPost?: Publication;
 }
 
 function BlogPage(props: IProps) {
   const { paginatedPublications, blogPost } = props;
-  const [data, setData] = useState<IGetPaginatedPublicationsResponse>();
+  const [data, setData] = useState<GetPaginatedPublicationsResponse>();
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const { getPaginatedPublications } = useApi();
@@ -53,39 +54,15 @@ function BlogPage(props: IProps) {
 
   return (
     <div>
-      <div className="flex flex-col gap-4">
-        <h2 className="text-2xl font-semibold">📝 Blog</h2>
-        <p className="text-gray-500 dark:text-gray-400">
-          This is the blog page. You can search for blog posts here or navigate
-          through blog posts using pagination.
-        </p>
-        <div className="mt-4">
-          <div className="mb-2 block">
-            <Label htmlFor="base" value="Search the blog" />
-          </div>
-          <TextInput
-            id="base"
-            type="text"
-            sizing="md"
-            placeholder={"Search"}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchTerm(e.target.value)
-            }
-          />
-        </div>
-      </div>
+      <BlogHeader setSearchTerm={setSearchTerm} />
       {isLoading && <FullScreenLoading />}
       {!isLoading && data && (
-        <>
-          {typeof data === "string" ? (
-            <h1>{data}</h1>
-          ) : (
-            data.count > 0 &&
+        <div className="grid grid-cols-4 gap-4">
+          {data.count > 0 &&
             data.results.map((blogPost, index) => {
               return <BlogPostPreview data={blogPost} key={index} />;
-            })
-          )}
-        </>
+            })}
+        </div>
       )}
     </div>
   );
