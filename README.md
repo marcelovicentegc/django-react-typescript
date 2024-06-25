@@ -148,7 +148,7 @@ flowchart LR
     nj -- No --> n4
     nj -- Yes --> nd("Deploy")
     nd --> nc("Starts gunicorn server under\nsupervisor to ensure the\nsystem is never down")
-    na{"Success?"} -- No --> ng("Better check your\nsystem's health")
+    na{"Success?"} -- No --> ng("Better manually log in\ninto host and fix it")
     na -- Yes --> nk("Updates are live")
     nc --> na
 ```
