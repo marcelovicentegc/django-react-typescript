@@ -1,6 +1,7 @@
 {
   "name": "django-react-typescript-frontend",
   "version": "0.1.0",
+  "private": true,
   "main": "index.js",
   "repository": "https://github.com/marcelovicentegc/django-react-typescript.git",
   "author": "Marcelo Cardoso <dev@marcelo.page>",
