@@ -1,4 +1,4 @@
-name: Build Image, push to Registry and Deploy to Digital Ocean's production environment
+name: Build image, push to registry and deploy to Digital Ocean's production environment
 
 on:
   push:

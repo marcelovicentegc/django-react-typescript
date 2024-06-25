@@ -13,7 +13,8 @@
     "dev:backend:db": "concurrently -n db,backend \"pnpm run dev:db:up\" \"wait-on tcp:5432 && pnpm run dev:backend\"",
     "dev:frontend": "cd frontend && pnpm i && pnpm run dev",
     "dev": "concurrently -n backend,frontend \"pnpm run dev:backend\" \"pnpm run dev:frontend\"",
-    "dev:full": "concurrently -n db,backend,frontend \"pnpm run dev:db:up\" \"wait-on tcp:5432 && pnpm run dev:backend\" \"pnpm run dev:frontend\""
+    "dev:full": "concurrently -n db,backend,frontend \"pnpm run dev:db:up\" \"wait-on tcp:5432 && pnpm run dev:backend\" \"pnpm run dev:frontend\"",
+    "release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,10 @@
   },
   "homepage": "https://github.com/marcelovicentegc/django-react-typescript#readme",
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "concurrently": "^8.2.2",
+    "semantic-release": "^24.0.0",
     "wait-on": "^7.2.0"
   }
 }
