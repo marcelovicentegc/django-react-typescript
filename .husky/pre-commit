@@ -1,0 +1,7 @@
+echo "Running static tests..."
+pnpm run test:static
+echo "Done running static tests."
+
+echo "Formatting code..."
+pnpm run format
+echo "Done formatting code."

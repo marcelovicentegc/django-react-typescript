@@ -33,3 +33,6 @@ coverage
 
 # IntelliJ
 .idea
+
+# Ruff
+.ruff_cache

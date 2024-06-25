@@ -1,25 +1,24 @@
-import os
 from django.db import migrations
+
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('backend', '0001_initial'),
+        ("backend", "0001_initial"),
     ]
 
-    def generate_superuser(apps, schema_editor):
+    def generate_superuser(apps, _):
         from django.contrib.auth.models import User
 
-        SU_NAME = 'admin'
-        
-        try: 
+        SU_NAME = "admin"
+
+        try:
             User.objects.get(username=SU_NAME)
         except User.DoesNotExist:
-            SU_EMAIL = 'admin@example.com'
-            SU_PASSWORD = 'admin'
+            SU_EMAIL = "admin@example.com"
+            SU_PASSWORD = "admin"
             superuser = User.objects.create_superuser(
-                username=SU_NAME,
-                email=SU_EMAIL,
-                password=SU_PASSWORD)
+                username=SU_NAME, email=SU_EMAIL, password=SU_PASSWORD
+            )
             superuser.is_superuser = True
             superuser.is_staff = True
             superuser.save()

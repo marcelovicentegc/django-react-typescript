@@ -7,19 +7,22 @@ from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from urllib.request import urlopen
 
+
 class Publication(TextBlock):
     image = CloudinaryField(Strings.IMAGE, null=True)
     image_description = models.TextField(
-        max_length=500, 
-        verbose_name=Strings.IMAGE_DESCRIPTION, 
-        help_text=Strings.IMAGE_DESCRIPTION_HELPER, 
-        blank=True
+        max_length=500,
+        verbose_name=Strings.IMAGE_DESCRIPTION,
+        help_text=Strings.IMAGE_DESCRIPTION_HELPER,
+        blank=True,
     )
-    tag = ArrayField(models.CharField(max_length=200), null=True, verbose_name=Strings.KEYWORD)
+    tag = ArrayField(
+        models.CharField(max_length=200), null=True, verbose_name=Strings.KEYWORD
+    )
     slug = models.SlugField(max_length=250, unique=True, null=True)
 
     def save(self, *args, **kwargs):
-        try: 
+        try:
             self.image = compress_image(self.image)
         except AttributeError:
             img_temp = NamedTemporaryFile(delete=True)
@@ -34,4 +37,4 @@ class Publication(TextBlock):
 
     class Meta:
         verbose_name = Strings.PUBLICATION
-        ordering = ['-created_at']
+        ordering = ["-created_at"]

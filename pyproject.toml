@@ -22,6 +22,9 @@ twilio = "^9.1.1"
 psycopg2-binary = "^2.9.9"
 django-unfold = "^0.28.1"
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.10"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import re_path, include
 from core.settings.base import STATIC_ROOT, MEDIA_ROOT
@@ -23,11 +24,21 @@ admin.site.site_title = "Django-React-Typescript Admin"
 admin.site.index_title = "Modules"
 
 urlpatterns = [
-    re_path(r'^admin/', admin.site.urls),
-    re_path(r'^api/', include('api.urls')),
-    re_path(r'^static/(?P<path>.*)$', serve, { 'document_root' : STATIC_ROOT, }), 
-    re_path(r'^media/(?P<path>.*)$', serve, {
-        'document_root': MEDIA_ROOT,
-    }),
-    re_path(r'^', include('frontend.urls')),
+    re_path(r"^admin/", admin.site.urls),
+    re_path(r"^api/", include("api.urls")),
+    re_path(
+        r"^static/(?P<path>.*)$",
+        serve,
+        {
+            "document_root": STATIC_ROOT,
+        },
+    ),
+    re_path(
+        r"^media/(?P<path>.*)$",
+        serve,
+        {
+            "document_root": MEDIA_ROOT,
+        },
+    ),
+    re_path(r"^", include("frontend.urls")),
 ]
