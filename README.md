@@ -1,6 +1,6 @@
 # django-react-typescript <!-- omit from toc -->
 
-<img alt="django-react-typescript logo" src="assets/Logo.png" aling="right" width="95" height="95" />
+<img alt="django-react-typescript logo" src="assets/Logo.png" align="right" width="95" height="95" />
 
 This is an non-opinionated Django 5 + React 18 boilerplate built with great development experience and easy deployment in mind.
 
