@@ -1,15 +1,12 @@
-[![License: MIT](https://img.shields.io/github/license/marcelovicentegc/django-react-typescript)](LICENSE)
+# django-react-typescript <!-- omit from toc -->
 
-<p align="center">
-  <img alt="django-react-typescript logo" src="assets/Logo.png" />
-  <p align="center">Fully-featured, Django 5 + React 18 boilerplate with great DX.</p>
-</p>
+<img alt="django-react-typescript logo" src="assets/Logo.png" aling="right" width="95" height="95" />
 
----
-
-This is an non-opinionated Django + React boilerplate built with great development experience and easy deployment in mind.
+This is an non-opinionated Django 5 + React 18 boilerplate built with great development experience and easy deployment in mind.
 
 This template is ideal if you want to bootstrap a blog or a portfolio website quickly, or even a more complex application that requires a CMS, all while leveraging the best from React and Django.
+
+---
 
 - [Getting started](#getting-started)
   - [Setting up a database](#setting-up-a-database)
