@@ -106,11 +106,52 @@ Nonetheless, this codebase has two deploy methods available via GitHub actions:
 
 The `vm-deploy` branch will trigger this wokflow. You can use it to deploy the app to any Virtual Machine accessible via SSH (AWS EC2s, GCloud apps, Digital Ocean droplets, Hostgator VPSs, etc), and you would likely want to change the name of these branches to something more meaningful to your project.
 
+This is what the workflow does:
+
+```mermaid
+flowchart LR
+    nv("Make changes to\nthe application") -- Commit --> n7("Build and test frontend\nand backend")
+    n7 --> nf{"Success?"}
+    nf -- Yes --> n2("Build and test docker\nimage")
+    nf -- No --> n4("Cancel pipeline")
+    n2 --> n5{"Success?"}
+    n5 -- No --> n4
+    n5 -- Yes --> nx("Publish docker image\nto GitHub packages")
+    nx --> nj{"Success?"}
+    nj -- No --> n4
+    nj -- Yes --> nd("Deploy")
+    nd --> nc("Login into VM and copy\ndocker compose file\nfrom repo")
+    nc --> n6{"Success?"}
+    n6 -- Yes --> no("Pull previously pushed Docker image\nand execute most recent\n docker compose file")
+    n6 -- No --> n4
+    no --> na{"Success?"}
+    na -- No --> ng("Better check your\nsystem's health")
+    na -- Yes --> nk("Updates are live")
+```
+
 ### Bare-metal Deploy Workflow
 
-The `bare-metal-deploy` branches will trigger this workflow. You can use it to deploy the app straight on the host machine, without any virtualization. This is not recommended, but ou never know when you will need to deploy an app on a bare-metal machine 🤷‍♀️
+The `bare-metal-deploy` branches will trigger this workflow. You can use it to deploy the app straight on the host machine, without any virtualization. This is not recommended, but ou never know when you will need to deploy an app on a bare-metal machine 🤷‍♀️. This pipeline assumes that you've got Node.js, Python, [Gunicorn](https://gunicorn.org/) and [Supervisord](http://supervisord.org/) installed on the host machine.
 
-You should configure these variables on a `.env` file on the root folder for the global configuration and a `.env` file for the frontend configuration under `frontend/.env` when developing. As for deploying the app, **you will need to set the same set of dev variables + some variables exclusively used in production environments as [_secrets_](https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)**.
+This is what the workflow does:
+
+```mermaid
+flowchart LR
+    nv("Make changes to\nthe application") -- Commit --> n7("Build and test frontend\nand backend")
+    n7 --> nf{"Success?"}
+    nf -- Yes --> n2("Logs into host machine\nand copy all relevant files\nfrom repo to it")
+    nf -- No --> n4("Cancel pipeline")
+    n2 --> n5{"Success?"}
+    n5 -- No --> n4
+    n5 -- Yes --> nx("Builds the frontend\nand the backend")
+    nx --> nj{"Success?"}
+    nj -- No --> n4
+    nj -- Yes --> nd("Deploy")
+    nd --> nc("Starts gunicorn server under\nsupervisor to ensure the\nsystem is never down")
+    na{"Success?"} -- No --> ng("Better check your\nsystem's health")
+    na -- Yes --> nk("Updates are live")
+    nc --> na
+```
 
 ### Configuration
 

@@ -70,7 +70,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
-          source: "requirements.txt,api,backend,config,core,frontend,manage.py,drt.ini"
+          source: "poetry.lock,pyproject.toml,api,backend,config,core,frontend,manage.py"
           target: "app_to_deploy"
 
       - name: build the backend, the frontend and start the app's daemon
@@ -121,13 +121,17 @@ jobs:
             echo -e "~~~~~~~~~~~~~~~~~~~~~~~~ Replaced current running code with new one ~~~~~~~~~~~~~~~~~~~~~~~~\n"
 
             cd app
-            python3 -m pip install -r requirements.txt
+            python3 -m pip install --upgrade pip
+            pip install poetry
+            poetry install --no-dev
             echo -e "~~~~~~~~~~~~~~~~~~~~~~~~ Installed python requirements successfully ~~~~~~~~~~~~~~~~~~~~~~~~\n"
 
-            python3 manage.py migrate && python3 manage.py collectstatic --no-input && python3 manage.py clearcache
+            poetry run python3 manage.py migrate
+            poetry run python3 manage.py collectstatic --no-input
+            poetry run python3 manage.py clearcache
 
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S rm /etc/supervisord.d/drt.ini
-            echo ${{ secrets.SSH_PASSWORD }} | sudo -S cp ./drt.ini /etc/supervisord.d/
+            echo ${{ secrets.SSH_PASSWORD }} | sudo -S cp ./config/supervisor/drt.ini /etc/supervisord.d/
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S supervisorctl update
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S supervisorctl reread
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S supervisorctl status drt
