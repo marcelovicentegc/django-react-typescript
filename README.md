@@ -19,8 +19,11 @@ This template is ideal if you want to bootstrap a blog or a portfolio website qu
   - [Bare-metal Deploy Workflow](#bare-metal-deploy-workflow)
   - [Configuration](#configuration)
   - [Architecture overview](#architecture-overview)
+- [Similar projects](#similar-projects)
 
 ## Getting started
+
+This project relies on [pnpm](https://pnpm.io/) and [Poetry](https://python-poetry.org/) to manage Node.js and Python dependencies, respectively. Make sure to have both installed on your machine before proceeding.
 
 After cloning this project, install all dependencies by running:
 
@@ -210,3 +213,9 @@ flowchart TD
     style subgraph_byfiey99u stroke:#000000
     style subgraph_3hmsyzvqm stroke:#000000
 ```
+
+## Similar projects
+
+React and Django are a great combination, and there are many projects out there that leverage the best of both worlds. Make sure to check them out if you're looking for a more opinionated boilerplate/different approach:
+
+- [django-react-boilerplate](https://github.com/vintasoftware/django-react-boilerplate)
