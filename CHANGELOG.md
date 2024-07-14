@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/marcelovicentegc/django-react-typescript/compare/v1.0.0...v1.0.1) (2024-07-14)
+
+
+### Bug Fixes
+
+* export subscriber and publication models ([7874f48](https://github.com/marcelovicentegc/django-react-typescript/commit/7874f48ae6653eb3dddd187f05076af4824e16d1))
+
 # 1.0.0 (2024-06-25)
 
 

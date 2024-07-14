@@ -1,6 +1,6 @@
 {
   "name": "django-react-typescript",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "description": "This is an non-opinionated Django + React boilerplate built with great development experience and easy deployment in mind.",
   "scripts": {
