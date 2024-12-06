@@ -286,13 +286,13 @@ dev = ["tox"]
 
 [[package]]
 name = "django"
-version = "5.0.7"
+version = "5.0.10"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "Django-5.0.7-py3-none-any.whl", hash = "sha256:f216510ace3de5de01329463a315a629f33480e893a9024fc93d8c32c22913da"},
-    {file = "Django-5.0.7.tar.gz", hash = "sha256:bd4505cae0b9bd642313e8fb71810893df5dc2ffcacaa67a33af2d5cd61888f2"},
+    {file = "Django-5.0.10-py3-none-any.whl", hash = "sha256:c8fab2c553750933c8e7f5f95e5507e138e6acf6c2b4581cb691e70fe3ed747b"},
+    {file = "Django-5.0.10.tar.gz", hash = "sha256:0f6cbc56cc298b0451d20a5120c6a8731e9073330fb5d84295c23c151a1eb300"},
 ]
 
 [package.dependencies]
@@ -1069,4 +1069,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "b3110f36c0183c560e637aa08aab00b541ed92bfcae11c8bbe9e86056fab5576"
+content-hash = "d38c5bc3e159f713a3fd487fc3e4dded0bd8d286a4f6ff2b12d17da9e5b195fe"
