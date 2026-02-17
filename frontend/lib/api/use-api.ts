@@ -6,7 +6,19 @@ import {
   getPaginatedFilteredPublicationsEndoint,
 } from "./utils";
 import { getSecrets } from "../config";
-import type { GetPaginatedPublicationsResponse, Publication } from "./types";
+import type {
+  GetPaginatedPublicationsResponse,
+  Publication,
+} from "./types";
+
+const emptyPaginatedResponse: GetPaginatedPublicationsResponse = {
+  count: 0,
+  current_page: 1,
+  total_pages: 0,
+  next: null,
+  previous: null,
+  results: [],
+};
 
 const { isProd, authToken } = getSecrets();
 
@@ -52,7 +64,7 @@ export function useApi() {
       headers: getHeaders,
     })
       .then((response) => response.json())
-      .catch((error) => {
+      .catch((error): Publication[] => {
         console.error(error);
         return [];
       });
@@ -113,9 +125,9 @@ export function useApi() {
       headers: getHeaders,
     })
       .then((response) => response.json())
-      .catch((error) => {
+      .catch((error): GetPaginatedPublicationsResponse => {
         console.error(error);
-        return [];
+        return emptyPaginatedResponse;
       });
   }
 
@@ -131,9 +143,9 @@ export function useApi() {
       }
     )
       .then((response) => response.json())
-      .catch((error) => {
+      .catch((error: unknown): never => {
         console.error(error);
-        return [];
+        throw error;
       });
   }
 

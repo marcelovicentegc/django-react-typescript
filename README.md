@@ -2,7 +2,7 @@
 
 <img alt="django-react-typescript logo" src="assets/Logo.png" align="right" width="120" height="120" />
 
-This is an non-opinionated Django 5 + React 18 boilerplate built with great development experience and easy deployment in mind.
+This is a non-opinionated Django 5 + React 18 boilerplate built with great development experience and easy deployment in mind.
 
 This template is ideal if you want to bootstrap a blog or a portfolio website quickly, or even a more complex application that requires a CMS, all while leveraging the best from React and Django.
 
@@ -90,7 +90,7 @@ Below you will find the stack used for each part of the application and the feat
 | Stack      | Libraries and services                                            | Features                         |
 | ---------- | ----------------------------------------------------------------- | -------------------------------- |
 | Frontend   | React 18, React Router 6, Typescript 5, Webpack 5, Tailwind CSS 3 | Publication listing and search   |
-| Backend    | Django 5, Django Rest Framework                                   | Publication CRUD, API Key CRUD   |
+| Backend    | Django 5.1+, Django Rest Framework                                | Publication CRUD, API Key CRUD   |
 | Database   | Postgres                                                          | -                                |
 | CDN        | Cloudinary                                                        | -                                |
 | CI/CD      | GitHub Actions                                                    | Multiple deploy workflow options |
