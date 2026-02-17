@@ -12,7 +12,7 @@ RUN cd frontend \
     && pnpm run build
 
 # Build backend
-FROM python:3.12-rc-slim-buster
+FROM python:3.12-slim-bookworm
 WORKDIR /usr/src/app
 ARG ALLOWED_HOSTS
 ENV ALLOWED_HOSTS $ALLOWED_HOSTS
@@ -26,4 +26,4 @@ RUN pip install --upgrade pip
 RUN pip install poetry
 COPY ./pyproject.toml /usr/src/app/pyproject.toml
 COPY ./poetry.lock /usr/src/app/poetry.lock
-RUN poetry install --no-dev
+RUN poetry install --only main
