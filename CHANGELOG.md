@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/marcelovicentegc/django-react-typescript/compare/v1.0.1...v1.0.2) (2026-03-23)
+
+
+### Bug Fixes
+
+* **ci:** Docker and Poetry 2 compatibility for CI/CD ([1d25c9a](https://github.com/marcelovicentegc/django-react-typescript/commit/1d25c9a80c55c5ccc8061dba16a968032c191ce2))
+
 ## [1.0.1](https://github.com/marcelovicentegc/django-react-typescript/compare/v1.0.0...v1.0.1) (2024-07-14)
 
 
