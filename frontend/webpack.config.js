@@ -71,10 +71,9 @@ module.exports = {
       },
       {
         test: /\.(woff2|png|jp(e*)g|gif|svg)$/,
-        loader: "file-loader",
-        options: {
-          name: "icons|fonts/[name].[ext]",
-          outputPath: PUBLIC_PATH,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/[name][ext]",
         },
       },
     ],
